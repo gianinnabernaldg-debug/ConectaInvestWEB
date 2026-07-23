@@ -58,10 +58,9 @@
 
   /* ============ HEADER (shared) ============ */
   header{background:#fff; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:100;}
-  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 0; gap:24px;}
-  .logo{display:flex; align-items:center; gap:10px; font-weight:800; font-size:20px; color:var(--navy-950);}
-  .logo .mark{width:38px; height:38px; border-radius:11px; background:var(--navy-900); display:flex; align-items:center; justify-content:center; flex:none;}
-  .logo b{color:var(--blue-600);}
+  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:24px;}
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo img{height:46px; width:auto; display:block; border-radius:10px;}
 
   nav.primary-nav > ul{display:flex; align-items:center; gap:4px;}
   nav.primary-nav > ul > li{position:relative;}
@@ -173,14 +172,9 @@
   .prop-body h3{font-size:17.5px; margin-bottom:8px;}
   .prop-loc{display:flex; align-items:center; gap:6px; font-size:13.5px; color:var(--muted); margin-bottom:18px;}
   .prop-loc svg{width:14px; height:14px; stroke:var(--blue-600); flex:none;}
-  .prop-specs{display:flex; gap:18px; padding-top:16px; border-top:1px dashed var(--line); margin-bottom:18px;}
+  .prop-specs{display:flex; gap:18px; padding-top:16px; border-top:1px dashed var(--line);}
   .prop-specs span{display:flex; align-items:center; gap:7px; font-size:13px; color:var(--ink); font-weight:600;}
   .prop-specs svg{width:16px; height:16px; stroke:var(--muted);}
-  .prop-agent{display:flex; align-items:center; justify-content:space-between; padding-top:16px; border-top:1px solid var(--line);}
-  .prop-agent .who{display:flex; align-items:center; gap:10px;}
-  .prop-agent img{width:32px; height:32px; border-radius:50%; object-fit:cover;}
-  .prop-agent b{font-size:13px; display:block;}
-  .prop-agent .time{font-size:12px; color:var(--muted);}
 
   @media(max-width:980px){ .prop-grid{grid-template-columns:1fr 1fr;} }
   @media(max-width:680px){ .prop-grid{grid-template-columns:1fr;} }
@@ -237,10 +231,7 @@
 <header>
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
-      <span class="mark">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 11.5L12 4l9 7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10v9.5a1 1 0 001 1H17.5a1 1 0 001-1V10" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      Conecta<b>Invest</b>
+      <img src="logo.webp" alt="Conecta Invest" width="161" height="59">
     </a>
 
     <div class="nav-scrim" id="navScrim"></div>
@@ -400,13 +391,7 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>92 m²</span>
         </div>
-        <div class="prop-agent">
-          <div class="who">
-            <img src="https://images.unsplash.com/photo-1627161684458-a62da52b51c3?auto=format&fit=crop&w=100&q=75" alt="Broker">
-            <div><b>Inmobiliaria Andes</b><div class="time">Hace 2 días</div></div>
-          </div>
         </div>
-      </div>
     </article>
 
     <article class="prop-card">
@@ -424,13 +409,7 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>1</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>58 m²</span>
         </div>
-        <div class="prop-agent">
-          <div class="who">
-            <img src="https://images.unsplash.com/photo-1627161683077-e34782c24d81?auto=format&fit=crop&w=100&q=75" alt="Broker">
-            <div><b>María Jara — Broker</b><div class="time">Hace 4 días</div></div>
-          </div>
         </div>
-      </div>
     </article>
 
     <article class="prop-card">
@@ -448,13 +427,7 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>3</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>136 m²</span>
         </div>
-        <div class="prop-agent">
-          <div class="who">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=75" alt="Broker">
-            <div><b>Master Broker RM</b><div class="time">Hace 1 día</div></div>
-          </div>
         </div>
-      </div>
     </article>
 
     <article class="prop-card">
@@ -471,13 +444,7 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>64 m²</span>
         </div>
-        <div class="prop-agent">
-          <div class="who">
-            <img src="https://images.unsplash.com/photo-1627161684458-a62da52b51c3?auto=format&fit=crop&w=100&q=75" alt="Broker">
-            <div><b>Inmobiliaria Andes</b><div class="time">Hace 5 días</div></div>
-          </div>
         </div>
-      </div>
     </article>
 
     <article class="prop-card">
@@ -494,13 +461,7 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>88 m²</span>
         </div>
-        <div class="prop-agent">
-          <div class="who">
-            <img src="https://images.unsplash.com/photo-1627161683077-e34782c24d81?auto=format&fit=crop&w=100&q=75" alt="Broker">
-            <div><b>María Jara — Broker</b><div class="time">Hace 6 días</div></div>
-          </div>
         </div>
-      </div>
     </article>
 
     <article class="prop-card">
@@ -518,13 +479,7 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>1</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>45 m²</span>
         </div>
-        <div class="prop-agent">
-          <div class="who">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=75" alt="Broker">
-            <div><b>Master Broker RM</b><div class="time">Hace 3 días</div></div>
-          </div>
         </div>
-      </div>
     </article>
 
     <article class="prop-card">
@@ -541,13 +496,7 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>3</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>210 m²</span>
         </div>
-        <div class="prop-agent">
-          <div class="who">
-            <img src="https://images.unsplash.com/photo-1627161684458-a62da52b51c3?auto=format&fit=crop&w=100&q=75" alt="Broker">
-            <div><b>Inmobiliaria Andes</b><div class="time">Hace 1 semana</div></div>
-          </div>
         </div>
-      </div>
     </article>
 
     <article class="prop-card">
@@ -564,13 +513,7 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>1</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>38 m²</span>
         </div>
-        <div class="prop-agent">
-          <div class="who">
-            <img src="https://images.unsplash.com/photo-1627161683077-e34782c24d81?auto=format&fit=crop&w=100&q=75" alt="Broker">
-            <div><b>María Jara — Broker</b><div class="time">Hace 2 semanas</div></div>
-          </div>
         </div>
-      </div>
     </article>
 
     <article class="prop-card">
@@ -588,13 +531,7 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg>Oficina</span>
         </div>
-        <div class="prop-agent">
-          <div class="who">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=75" alt="Broker">
-            <div><b>Master Broker RM</b><div class="time">Hace 4 días</div></div>
-          </div>
         </div>
-      </div>
     </article>
 
   </div>
@@ -617,10 +554,8 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-          <span class="mark">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 11.5L12 4l9 7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10v9.5a1 1 0 001 1H17.5a1 1 0 001-1V10" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          Conecta<b style="color:#e9c98a;">Invest</b>
+          <img src="logo.webp" alt="Conecta Invest" width="161" height="59">
+        
         </a>
         <p>Plataforma de distribución inmobiliaria que centraliza stock de distintas inmobiliarias y lo activa a través de una red comercial experta.</p>
       </div>
