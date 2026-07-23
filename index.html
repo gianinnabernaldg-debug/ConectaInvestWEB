@@ -46,7 +46,6 @@
     font-size:13px; font-weight:700; letter-spacing:.04em; color:var(--muted);
     text-transform:uppercase; margin-bottom:14px;
   }
-  .sec-title .tag::before{content:""; width:26px; height:2px; background:var(--gold); display:inline-block;}
   .sec-title h2{font-size:clamp(24px,3vw,32px);}
   .sec-title h2 span{color:var(--blue-600);}
   .sec-title p{margin-top:12px; font-size:15.5px;}
@@ -69,21 +68,27 @@
   .btn svg{width:14px; height:14px;}
 
   /* ============ HEADER ============ */
-  header{background:#fff; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:100;}
-  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 0; gap:24px;}
-  .logo{display:flex; align-items:center; gap:10px; font-weight:800; font-size:20px; color:var(--navy-950);}
-  .logo .mark{width:38px; height:38px; border-radius:11px; background:var(--navy-900); display:flex; align-items:center; justify-content:center; flex:none;}
-  .logo b{color:var(--blue-600);}
+  header{
+    background:transparent; border-bottom:1px solid transparent; position:fixed; top:0; left:0; right:0; z-index:100;
+    transition:background .3s ease, box-shadow .3s ease, border-color .3s ease, padding .3s ease;
+    padding:6px 0;
+  }
+  header.solid{background:#fff; border-bottom-color:var(--line); box-shadow:0 8px 28px rgba(11,44,72,.1);}
+  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:12px 0; gap:24px;}
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo img{height:46px; width:auto; display:block; border-radius:10px;}
 
   nav.primary-nav > ul{display:flex; align-items:center; gap:4px;}
   nav.primary-nav > ul > li{position:relative;}
   nav.primary-nav > ul > li > a{
     display:flex; align-items:center; gap:6px; padding:10px 16px; border-radius:8px;
-    font-size:14.5px; font-weight:600; color:var(--ink); transition:color .18s ease, background .18s ease;
+    font-size:14.5px; font-weight:600; color:rgba(255,255,255,.94); transition:color .18s ease, background .18s ease;
   }
-  nav.primary-nav > ul > li > a:hover{color:var(--blue-600); background:var(--sky-50);}
+  nav.primary-nav > ul > li > a:hover{color:#fff; background:rgba(255,255,255,.14);}
   nav.primary-nav > ul > li > a svg{width:10px; transition:transform .2s ease;}
   li.has-drop:hover > a svg{transform:rotate(180deg);}
+  header.solid nav.primary-nav > ul > li > a{color:var(--ink);}
+  header.solid nav.primary-nav > ul > li > a:hover{color:var(--blue-600); background:var(--sky-50);}
 
   .dropdown{
     position:absolute; top:calc(100% + 10px); left:0; min-width:250px; background:#fff;
@@ -96,9 +101,18 @@
   .dropdown a:hover{background:var(--sky-50);}
 
   .header-actions{display:flex; align-items:center; gap:10px;}
-  .header-actions .divider{width:1px; height:22px; background:var(--line);}
-  .mmenu-btn{display:none; width:42px; height:42px; border-radius:10px; border:1px solid var(--line); background:#fff; align-items:center; justify-content:center; cursor:pointer;}
-  .mmenu-btn span{display:block; width:18px; height:2px; background:var(--navy-900); margin:3px auto;}
+  .header-actions .divider{width:1px; height:22px; background:rgba(255,255,255,.35);}
+  header.solid .header-actions .divider{background:var(--line);}
+
+  .btn-nav-ghost{border:2px solid rgba(255,255,255,.7); color:#fff; background:transparent;}
+  .btn-nav-ghost:hover{background:rgba(255,255,255,.16); color:#fff;}
+  header.solid .btn-nav-ghost{border-color:var(--navy-900); color:var(--navy-900);}
+  header.solid .btn-nav-ghost:hover{background:var(--navy-900); color:#fff;}
+
+  .mmenu-btn{display:none; width:42px; height:42px; border-radius:10px; border:1px solid rgba(255,255,255,.5); background:rgba(255,255,255,.12); align-items:center; justify-content:center; cursor:pointer;}
+  .mmenu-btn span{display:block; width:18px; height:2px; background:#fff; margin:3px auto;}
+  header.solid .mmenu-btn{border-color:var(--line); background:#fff;}
+  header.solid .mmenu-btn span{background:var(--navy-900);}
 
   /* ============ HERO (photo + navy overlay, diagonal cover) ============ */
   .hero{position:relative; overflow:hidden; min-height:78vh; display:flex; align-items:center;}
@@ -109,7 +123,6 @@
   .hero p.lead{color:rgba(255,255,255,.85); font-size:16px; margin-top:18px; max-width:480px;}
   .hero .cta-row{display:flex; gap:16px; margin-top:28px; flex-wrap:wrap;}
   .hero .eyebrow{color:#e9c98a; font-weight:700; font-size:13px; letter-spacing:.05em; text-transform:uppercase; display:flex; align-items:center; gap:10px;}
-  .hero .eyebrow::before{content:""; width:26px; height:2px; background:#e9c98a;}
 
   .wave{position:absolute; left:0; right:0; bottom:-2px; z-index:2; line-height:0; width:100%;}
   .wave svg{width:100%; height:auto; display:block;}
@@ -152,7 +165,6 @@
   .cta-divider p{color:rgba(255,255,255,.85); margin-top:16px; font-size:16px; max-width:500px;}
   .cta-divider .cta-row{margin-top:30px;}
   .cta-divider .eyebrow{color:#e9c98a; font-weight:700; font-size:13px; letter-spacing:.05em; text-transform:uppercase; display:flex; align-items:center; gap:10px; margin-bottom:16px;}
-  .cta-divider .eyebrow::before{content:""; width:26px; height:2px; background:#e9c98a;}
 
   /* ============ FEATURED PROPERTIES ============ */
   .head-row{display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:44px; flex-wrap:wrap;}
@@ -179,14 +191,9 @@
   .prop-body h3{font-size:17.5px; margin-bottom:8px;}
   .prop-loc{display:flex; align-items:center; gap:6px; font-size:13.5px; color:var(--muted); margin-bottom:18px;}
   .prop-loc svg{width:14px; height:14px; stroke:var(--blue-600); flex:none;}
-  .prop-specs{display:flex; gap:18px; padding-top:16px; border-top:1px dashed var(--line); margin-bottom:18px;}
+  .prop-specs{display:flex; gap:18px; padding-top:16px; border-top:1px dashed var(--line);}
   .prop-specs span{display:flex; align-items:center; gap:7px; font-size:13px; color:var(--ink); font-weight:600;}
   .prop-specs svg{width:16px; height:16px; stroke:var(--muted);}
-  .prop-agent{display:flex; align-items:center; justify-content:space-between; padding-top:16px; border-top:1px solid var(--line);}
-  .prop-agent .who{display:flex; align-items:center; gap:10px;}
-  .prop-agent img{width:32px; height:32px; border-radius:50%; object-fit:cover;}
-  .prop-agent b{font-size:13px; display:block;}
-  .prop-agent .time{font-size:12px; color:var(--muted);}
 
   .featured-foot{display:flex; justify-content:center; margin-top:52px;}
 
@@ -199,7 +206,6 @@
   .final-cta p{color:rgba(255,255,255,.72); margin-top:16px; max-width:560px; margin-left:auto; margin-right:auto; font-size:16px;}
   .final-cta .cta-row{margin-top:30px;}
   .final-cta .eyebrow{color:#e9c98a; font-weight:700; font-size:13px; letter-spacing:.05em; text-transform:uppercase; justify-content:center; display:flex; align-items:center; gap:10px; margin-bottom:16px;}
-  .final-cta .eyebrow::before, .final-cta .eyebrow::after{content:""; width:26px; height:2px; background:#e9c98a;}
 
   /* ============ FOOTER ============ */
   footer{background:#080f18; color:rgba(255,255,255,.68); padding:70px 0 26px;}
@@ -230,7 +236,9 @@
     }
     nav.primary-nav.open{transform:translateX(0);}
     nav.primary-nav > ul{flex-direction:column; align-items:stretch; gap:2px;}
-    nav.primary-nav > ul > li > a{padding:14px 4px; font-size:16px; border-bottom:1px solid var(--line); border-radius:0; justify-content:space-between;}
+    nav.primary-nav > ul > li > a,
+    header.solid nav.primary-nav > ul > li > a{padding:14px 4px; font-size:16px; border-bottom:1px solid var(--line); border-radius:0; justify-content:space-between; color:var(--ink);}
+    nav.primary-nav > ul > li > a:hover{color:var(--blue-600); background:var(--sky-50);}
     .dropdown{position:static; opacity:1; visibility:visible; transform:none; box-shadow:none; border:none; display:none; background:var(--sky-50);}
     li.has-drop.open .dropdown{display:block;}
     .mmenu-btn{display:flex;}
@@ -247,13 +255,10 @@
 <body>
 
 <!-- ============ HEADER ============ -->
-<header>
+<header id="siteHeader">
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
-      <span class="mark">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 11.5L12 4l9 7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10v9.5a1 1 0 001 1H17.5a1 1 0 001-1V10" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      Conecta<b>Invest</b>
+      <img src="logo.webp" alt="Conecta Invest" width="161" height="59">
     </a>
 
     <div class="nav-scrim" id="navScrim"></div>
@@ -274,7 +279,7 @@
     </nav>
 
     <div class="header-actions">
-      <a href="propiedades.html" class="btn btn-outline btn-sm">Ver propiedades</a>
+      <a href="propiedades.html" class="btn btn-nav-ghost btn-sm">Ver propiedades</a>
       <span class="divider"></span>
       <a href="https://dashboard.conectainvest.cl/" class="btn btn-navy btn-sm">Mi cuenta</a>
       <button class="mmenu-btn" id="mmenuBtn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
@@ -336,12 +341,6 @@
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>92 m²</span>
           </div>
-          <div class="prop-agent">
-            <div class="who">
-              <img src="https://images.unsplash.com/photo-1627161684458-a62da52b51c3?auto=format&fit=crop&w=100&q=75" alt="Broker">
-              <div><b>Inmobiliaria Andes</b><div class="time">Hace 2 días</div></div>
-            </div>
-          </div>
         </div>
       </article>
 
@@ -362,12 +361,6 @@
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>2</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>1</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>58 m²</span>
-          </div>
-          <div class="prop-agent">
-            <div class="who">
-              <img src="https://images.unsplash.com/photo-1627161683077-e34782c24d81?auto=format&fit=crop&w=100&q=75" alt="Broker">
-              <div><b>María Jara — Broker</b><div class="time">Hace 4 días</div></div>
-            </div>
           </div>
         </div>
       </article>
@@ -390,12 +383,6 @@
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>3</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>136 m²</span>
           </div>
-          <div class="prop-agent">
-            <div class="who">
-              <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=100&q=75" alt="Broker">
-              <div><b>Master Broker RM</b><div class="time">Hace 1 día</div></div>
-            </div>
-          </div>
         </div>
       </article>
 
@@ -415,12 +402,6 @@
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>2</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>64 m²</span>
-          </div>
-          <div class="prop-agent">
-            <div class="who">
-              <img src="https://images.unsplash.com/photo-1627161684458-a62da52b51c3?auto=format&fit=crop&w=100&q=75" alt="Broker">
-              <div><b>Inmobiliaria Andes</b><div class="time">Hace 5 días</div></div>
-            </div>
           </div>
         </div>
       </article>
@@ -442,12 +423,6 @@
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>88 m²</span>
           </div>
-          <div class="prop-agent">
-            <div class="who">
-              <img src="https://images.unsplash.com/photo-1627161683077-e34782c24d81?auto=format&fit=crop&w=100&q=75" alt="Broker">
-              <div><b>María Jara — Broker</b><div class="time">Hace 6 días</div></div>
-            </div>
-          </div>
         </div>
       </article>
 
@@ -468,12 +443,6 @@
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>1</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>1</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>45 m²</span>
-          </div>
-          <div class="prop-agent">
-            <div class="who">
-              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=75" alt="Broker">
-              <div><b>Master Broker RM</b><div class="time">Hace 3 días</div></div>
-            </div>
           </div>
         </div>
       </article>
@@ -590,10 +559,8 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-          <span class="mark">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 11.5L12 4l9 7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10v9.5a1 1 0 001 1H17.5a1 1 0 001-1V10" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          Conecta<b style="color:#e9c98a;">Invest</b>
+          <img src="logo.webp" alt="Conecta Invest" width="161" height="59">
+        
         </a>
         <p>Plataforma de distribución inmobiliaria que centraliza stock de distintas inmobiliarias y lo activa a través de una red comercial experta.</p>
       </div>
@@ -630,6 +597,11 @@
 </footer>
 
 <script>
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => header.classList.toggle('solid', window.scrollY > 40);
+  document.addEventListener('scroll', onScroll);
+  onScroll();
+
   const nav = document.getElementById('primaryNav');
   const btn = document.getElementById('mmenuBtn');
   const scrim = document.getElementById('navScrim');
