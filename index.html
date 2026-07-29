@@ -184,7 +184,19 @@
   .badge.featured{left:16px; background:var(--gold); color:#fff;}
   .badge.op{right:16px; background:var(--navy-950); color:#fff;}
   .badge.op.rent{background:var(--blue-600);}
+  .badge.disp-inmediata{left:16px; background:#0d9e6e; color:#fff;}
+  .badge.disp-pronta{left:16px; background:#0369a1; color:#fff;}
+  .badge.disp-futura{left:16px; background:#6366f1; color:#fff;}
   .price-tag{position:absolute; left:18px; bottom:16px; z-index:2; color:#fff; font-weight:800; font-size:19px; text-shadow:0 2px 10px rgba(0,0,0,.55);}
+  .prop-inmo{font-size:11px; color:var(--blue-600); font-weight:700; text-transform:uppercase; letter-spacing:.03em; margin-bottom:6px;}
+  .prop-actions{display:flex; gap:10px; margin-top:18px; padding-top:16px; border-top:1px solid var(--line);}
+  .prop-actions .btn{flex:1; padding:10px 12px; font-size:12.5px;}
+  .prop-skeleton{background:var(--paper); border:1px solid var(--line); border-radius:18px; height:360px; animation:ciPulse 1.5s ease-in-out infinite;}
+  @keyframes ciPulse{0%,100%{opacity:1;} 50%{opacity:.5;}}
+  .prop-empty{grid-column:1/-1; text-align:center; padding:60px 20px;}
+  .prop-empty-icon{font-size:34px; margin-bottom:12px;}
+  .prop-empty-text{font-size:15px; font-weight:700; color:var(--navy-950);}
+  .prop-empty-sub{font-size:13px; color:var(--muted); margin-top:6px;}
   .prop-media::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(4,14,24,.55), transparent 45%);}
 
   .prop-body{padding:22px 22px 24px;}
@@ -273,7 +285,7 @@
             <a href="broker-independiente.html">Broker Independiente<span>Vende con respaldo Conecta</span></a>
           </div>
         </li>
-        <li><a href="soy-inmobiliaria.html">Vender mi Stock</a></li>
+        <li><a href="soy-inmobiliaria.html">Soy Inmobiliaria</a></li>
         <li><a href="contacto.html">Contacto</a></li>
       </ul>
     </nav>
@@ -308,7 +320,7 @@
   </div>
 </section>
 
-<!-- ============ FEATURED PROPERTIES ============ -->
+<!-- ============ FEATURED PROPERTIES (datos en vivo desde Supabase) ============ -->
 <section class="section bg-white" id="propiedades">
   <div class="wrap">
     <div class="head-row" data-reveal>
@@ -316,137 +328,17 @@
         <span class="tag" style="margin-bottom:10px;">Stock actualizado</span>
         <h2 style="font-size:clamp(24px,3vw,32px);">Nuevas propiedades <span style="color:var(--blue-600);">disponibles</span></h2>
         <p style="margin-top:12px;">Descubre las últimas propiedades que ingresaron a la red Conecta Invest.</p>
-        <span class="sample-pill"><span class="dot"></span>Datos de muestra — se conectará al dashboard</span>
       </div>
       <a href="propiedades.html" class="btn btn-outline">Ver todas</a>
     </div>
 
-    <div class="prop-grid">
-
-      <article class="prop-card" data-reveal>
-        <div class="prop-media">
-          <span class="badge featured">Destacada</span>
-          <span class="badge op">Venta</span>
-          <span class="price-tag">UF 4.850</span>
-          <img src="https://images.unsplash.com/photo-1512845296467-183ccf124347?auto=format&fit=crop&w=800&q=75" alt="Edificio residencial moderno">
-        </div>
-        <div class="prop-body">
-          <h3>Edificio Las Condes Vista</h3>
-          <div class="prop-loc">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
-            Las Condes, Santiago
-          </div>
-          <div class="prop-specs">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>3</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>92 m²</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="prop-card" data-reveal>
-        <div class="prop-media">
-          <span class="badge featured">Destacada</span>
-          <span class="badge op rent">Arriendo</span>
-          <span class="price-tag">$680.000</span>
-          <img src="https://images.unsplash.com/photo-1521208059781-bcf3fd4d1245?auto=format&fit=crop&w=800&q=75" alt="Edificio residencial con balcones">
-        </div>
-        <div class="prop-body">
-          <h3>Parque Ñuñoa Living</h3>
-          <div class="prop-loc">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
-            Ñuñoa, Santiago
-          </div>
-          <div class="prop-specs">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>2</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>1</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>58 m²</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="prop-card" data-reveal>
-        <div class="prop-media">
-          <span class="badge featured">Destacada</span>
-          <span class="badge op">Venta</span>
-          <span class="price-tag">UF 7.200</span>
-          <img src="https://images.unsplash.com/photo-1525953776754-6c4b7ee655ab?auto=format&fit=crop&w=800&q=75" alt="Condominio de altura">
-        </div>
-        <div class="prop-body">
-          <h3>Vitacura Corporate Towers</h3>
-          <div class="prop-loc">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
-            Vitacura, Santiago
-          </div>
-          <div class="prop-specs">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>4</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>3</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>136 m²</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="prop-card" data-reveal>
-        <div class="prop-media">
-          <span class="badge op">Venta</span>
-          <span class="price-tag">UF 3.390</span>
-          <img src="https://images.unsplash.com/photo-1568822240459-9400e58f710f?auto=format&fit=crop&w=800&q=75" alt="Edificio blanco moderno">
-        </div>
-        <div class="prop-body">
-          <h3>Providencia Central Park</h3>
-          <div class="prop-loc">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
-            Providencia, Santiago
-          </div>
-          <div class="prop-specs">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>2</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>64 m²</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="prop-card" data-reveal>
-        <div class="prop-media">
-          <span class="badge op rent">Arriendo</span>
-          <span class="price-tag">$920.000</span>
-          <img src="https://images.unsplash.com/photo-1514895413746-feb3d266273d?auto=format&fit=crop&w=800&q=75" alt="Edificio color arena">
-        </div>
-        <div class="prop-body">
-          <h3>Torre Manquehue Norte</h3>
-          <div class="prop-loc">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
-            Huechuraba, Santiago
-          </div>
-          <div class="prop-specs">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>3</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>88 m²</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="prop-card" data-reveal>
-        <div class="prop-media">
-          <span class="badge featured">Destacada</span>
-          <span class="badge op">Venta</span>
-          <span class="price-tag">UF 5.980</span>
-          <img src="https://images.unsplash.com/photo-1696341613952-132b7e85176d?auto=format&fit=crop&w=800&q=75" alt="Edificio de inversión">
-        </div>
-        <div class="prop-body">
-          <h3>Costanera Business Loft</h3>
-          <div class="prop-loc">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
-            Providencia, Santiago
-          </div>
-          <div class="prop-specs">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>1</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>1</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>45 m²</span>
-          </div>
-        </div>
-      </article>
-
+    <div class="prop-grid" id="homeProjectsGrid">
+      <div class="prop-skeleton"></div>
+      <div class="prop-skeleton"></div>
+      <div class="prop-skeleton"></div>
+      <div class="prop-skeleton"></div>
+      <div class="prop-skeleton"></div>
+      <div class="prop-skeleton"></div>
     </div>
 
     <div class="featured-foot" data-reveal>
@@ -569,7 +461,7 @@
         <ul>
           <li><a href="index.html">Nosotros</a></li>
           <li><a href="propiedades.html">Ver propiedades</a></li>
-          <li><a href="soy-inmobiliaria.html">Vender mi Stock</a></li>
+          <li><a href="soy-inmobiliaria.html">Soy Inmobiliaria</a></li>
           <li><a href="contacto.html">Contacto</a></li>
         </ul>
       </div>
@@ -621,6 +513,24 @@
   document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
 
   document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script src="ci-data.js"></script>
+<script>
+  (async function loadHomeProjects(){
+    const grid = document.getElementById('homeProjectsGrid');
+    try {
+      const proyectos = await ciFetchProyectos(6);
+      if(!proyectos.length){
+        grid.innerHTML = ciEmptyHTML('Aún no hay proyectos publicados', 'Vuelve pronto para ver el stock disponible.');
+        return;
+      }
+      const unidadesPorProyecto = await ciFetchUnidadesPorProyectos(proyectos.map(p => p.id));
+      grid.innerHTML = proyectos.map(p => ciCardHTML(p, unidadesPorProyecto[p.id] || [])).join('');
+    } catch(e) {
+      grid.innerHTML = ciErrorHTML('No pudimos cargar las propiedades en este momento.');
+      console.error('Conecta Invest — home projects:', e);
+    }
+  })();
 </script>
 </body>
 </html>
