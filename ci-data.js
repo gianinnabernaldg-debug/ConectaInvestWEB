@@ -68,6 +68,10 @@ function ciFormatUF(n) {
   return n != null ? Number(n).toLocaleString('es-CL') + ' UF' : 'Consultar';
 }
 
+function ciFormatDesdeUF(n) {
+  return n != null ? 'Desde ' + ciFormatUF(n) : 'Consultar';
+}
+
 const CI_DISP_LABEL = { inmediata: 'Entrega inmediata', 'pronta entrega': 'Pronta entrega', futura: 'Entrega futura' };
 const CI_DISP_CLASS = { inmediata: 'disp-inmediata', 'pronta entrega': 'disp-pronta', futura: 'disp-futura' };
 
@@ -124,11 +128,11 @@ function ciCardHTML(p, unidades) {
   const detailUrl = `proyecto.html?id=${encodeURIComponent(p.id)}`;
 
   return `
-    <article class="prop-card" data-id="${p.id}" data-lat="${coords[0]}" data-lng="${coords[1]}" data-title="${(p.nombre||'').replace(/"/g,'&quot;')}" data-price="${ciFormatUF(minUF)}" data-tipo="${(p.tipo||'').toLowerCase()}" data-op="${(p.operacion||'').toLowerCase()}" data-disp="${disp}" data-hab="${(unidades||[]).map(u=>u.habitaciones||0).join(',')}" data-ciudad="${ciNormalize(p.ubicacion)}" data-inmo="${ciNormalize(p.inmobiliaria_nombre)}">
+    <article class="prop-card" data-id="${p.id}" data-lat="${coords[0]}" data-lng="${coords[1]}" data-title="${(p.nombre||'').replace(/"/g,'&quot;')}" data-price="${ciFormatDesdeUF(minUF)}" data-tipo="${(p.tipo||'').toLowerCase()}" data-op="${(p.operacion||'').toLowerCase()}" data-disp="${disp}" data-hab="${(unidades||[]).map(u=>u.habitaciones||0).join(',')}" data-ciudad="${ciNormalize(p.ubicacion)}" data-inmo="${ciNormalize(p.inmobiliaria_nombre)}">
       <div class="prop-media">
         ${p.disponibilidad ? `<span class="badge ${CI_DISP_CLASS[disp] || 'disp-inmediata'}">${CI_DISP_LABEL[disp] || p.disponibilidad}</span>` : ''}
         ${p.operacion ? `<span class="badge op ${/arriendo/i.test(p.operacion) ? 'rent' : ''}">${p.operacion}</span>` : ''}
-        <span class="price-tag">${ciFormatUF(minUF)}</span>
+        <span class="price-tag">${ciFormatDesdeUF(minUF)}</span>
         ${p.imagen_principal
           ? `<img src="${p.imagen_principal}" alt="${p.nombre || ''}" loading="lazy">`
           : `<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--navy-900),var(--blue-500));"></div>`}
