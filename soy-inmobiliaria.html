@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Soy Inmobiliaria — Conecta Invest</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="¿Eres inmobiliaria? Vende tu stock con Conecta Invest: más opciones de venta, brokers especializados y gestión centralizada.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --navy-950:#071b2e;
+    --navy-900:#0b2c48;
+    --navy-800:#123a5e;
+    --blue-600:#1a56a0;
+    --blue-500:#2e6fa8;
+    --sky-100:#eaf2fb;
+    --sky-50:#f3f7fc;
+    --paper:#f5f7fa;
+    --white:#ffffff;
+    --ink:#16283b;
+    --muted:#7c8a9a;
+    --line:#e7ecf1;
+    --gold:#d9a441;
+    --font:"Plus Jakarta Sans", "Inter", sans-serif;
+    --container:1200px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:var(--font); color:var(--ink); background:var(--white); -webkit-font-smoothing:antialiased;}
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{margin:0; padding:0; list-style:none;}
+  .wrap{max-width:var(--container); margin:0 auto; padding:0 24px;}
+  svg{display:block;}
+  h1,h2,h3,h4{font-family:var(--font); font-weight:800; line-height:1.18; margin:0; color:var(--navy-950);}
+  p{margin:0; line-height:1.7; color:var(--muted); font-size:15px;}
+
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:14px 28px; border-radius:999px; font-weight:700; font-size:14.5px; border:2px solid transparent; cursor:pointer; transition:all .2s ease; white-space:nowrap;}
+  .btn-white{background:#fff; color:var(--navy-900);}
+  .btn-white:hover{background:var(--gold); color:#fff;}
+  .btn-navy{background:var(--navy-900); color:#fff;}
+  .btn-navy:hover{background:var(--blue-600);}
+  .btn-outline{border-color:var(--navy-900); color:var(--navy-900); background:transparent;}
+  .btn-outline:hover{background:var(--navy-900); color:#fff;}
+  .btn-sm{padding:10px 20px; font-size:13px;}
+  .btn svg{width:14px; height:14px;}
+  .btn[disabled]{opacity:.6; cursor:not-allowed;}
+
+  /* HEADER */
+  header{background:#fff; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:100;}
+  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:24px;}
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo img{height:46px; width:auto; display:block; border-radius:10px;}
+  nav.primary-nav > ul{display:flex; align-items:center; gap:4px;}
+  nav.primary-nav > ul > li{position:relative;}
+  nav.primary-nav > ul > li > a{display:flex; align-items:center; gap:6px; padding:10px 16px; border-radius:8px; font-size:14.5px; font-weight:600; color:var(--ink); transition:color .18s ease, background .18s ease;}
+  nav.primary-nav > ul > li > a:hover{color:var(--blue-600); background:var(--sky-50);}
+  nav.primary-nav > ul > li > a.active{color:var(--blue-600); background:var(--sky-100);}
+  nav.primary-nav > ul > li > a svg{width:10px; transition:transform .2s ease;}
+  li.has-drop:hover > a svg{transform:rotate(180deg);}
+  .dropdown{position:absolute; top:calc(100% + 10px); left:0; min-width:250px; background:#fff; border-radius:14px; box-shadow:0 20px 45px rgba(11,44,72,.16); padding:10px; opacity:0; visibility:hidden; transform:translateY(6px); transition:all .18s ease; border:1px solid var(--line);}
+  li.has-drop:hover .dropdown{opacity:1; visibility:visible; transform:translateY(0);}
+  .dropdown a{display:flex; flex-direction:column; gap:2px; padding:11px 14px; border-radius:9px; font-weight:600; font-size:14px; color:var(--navy-950);}
+  .dropdown a span{font-family:var(--font); font-weight:400; font-size:12.5px; color:var(--muted);}
+  .dropdown a:hover{background:var(--sky-50);}
+  .header-actions{display:flex; align-items:center; gap:10px;}
+  .header-actions .divider{width:1px; height:22px; background:var(--line);}
+  .mmenu-btn{display:none; width:42px; height:42px; border-radius:10px; border:1px solid var(--line); background:#fff; align-items:center; justify-content:center; cursor:pointer;}
+  .mmenu-btn span{display:block; width:18px; height:2px; background:var(--navy-900); margin:3px auto;}
+
+  /* PAGE HEADER */
+  .page-header{background:var(--paper); padding:38px 0 34px; border-bottom:1px solid var(--line);}
+  .breadcrumb{display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--muted); margin-bottom:10px; flex-wrap:wrap;}
+  .breadcrumb a{color:var(--muted); font-weight:600;}
+  .breadcrumb a:hover{color:var(--blue-600);}
+  .breadcrumb span{color:var(--navy-950); font-weight:700;}
+  .page-header h1{font-size:clamp(24px,3.4vw,36px); max-width:760px;}
+  .page-header h1 b{color:var(--blue-600); font-weight:800;}
+  .page-header .sub{margin-top:10px; font-size:15.5px; max-width:640px;}
+
+  /* WHY-STYLE MINI CARDS (used on Soy Inmobiliaria) */
+  .section{padding:76px 0;}
+  .sec-title{max-width:680px; margin:0 auto 44px; text-align:center;}
+  .sec-title h2{font-size:clamp(22px,2.8vw,30px);}
+  .sec-title p{margin-top:14px; font-size:15.5px;}
+  .why-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .why-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:30px 26px; text-align:center; transition:transform .2s ease, box-shadow .2s ease;}
+  .why-card:hover{transform:translateY(-5px); box-shadow:0 22px 42px rgba(11,44,72,.1);}
+  .why-card .icon-box{width:60px; height:60px; border-radius:15px; border:2px solid var(--sky-100); background:var(--sky-50); display:flex; align-items:center; justify-content:center; margin:0 auto 18px;}
+  .why-card .icon-box svg{width:26px; height:26px; stroke:var(--blue-600);}
+  .why-card h3{font-size:16.5px; margin-bottom:8px;}
+  .why-card p{font-size:14px;}
+  @media(max-width:860px){ .why-grid{grid-template-columns:1fr;} }
+
+  /* FORM CARD */
+  .form-section{padding:64px 0 100px;}
+  .form-shell{display:grid; grid-template-columns:.95fr 1.15fr; gap:44px; align-items:flex-start;}
+  .form-aside h2{font-size:clamp(22px,2.8vw,28px);}
+  .form-aside p{margin-top:14px; font-size:15px;}
+  .form-aside .perk{display:flex; gap:12px; align-items:flex-start; margin-top:22px;}
+  .form-aside .perk svg{width:20px; height:20px; stroke:var(--blue-600); flex:none; margin-top:2px;}
+  .form-aside .perk b{display:block; font-size:14.5px; color:var(--navy-950); margin-bottom:2px;}
+  .form-aside .perk p{font-size:13.5px; margin-top:0;}
+
+  .form-card{background:#fff; border:1px solid var(--line); border-radius:20px; padding:34px; box-shadow:0 20px 48px rgba(11,44,72,.08);}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-size:13px; font-weight:700; color:var(--navy-950); margin-bottom:7px;}
+  .field label .opt{color:var(--muted); font-weight:500;}
+  .field input[type=text], .field input[type=email], .field input[type=tel], .field select, .field textarea{
+    width:100%; border:1.5px solid var(--line); border-radius:11px; padding:12px 14px; font-family:var(--font);
+    font-size:14.5px; color:var(--ink); background:#fff; transition:border-color .18s ease; appearance:none;
+  }
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237c8a9a' stroke-width='1.6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center;}
+  .field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--blue-500);}
+  .field textarea{resize:vertical; min-height:110px;}
+  .char-count{text-align:right; font-size:12px; color:var(--muted); margin-top:5px;}
+  .file-field{border:1.5px dashed var(--line); border-radius:11px; padding:16px; display:flex; align-items:center; gap:12px; cursor:pointer; transition:border-color .18s ease;}
+  .file-field:hover{border-color:var(--blue-500);}
+  .file-field svg{width:20px; height:20px; stroke:var(--blue-600); flex:none;}
+  .file-field span{font-size:13.5px; color:var(--muted);}
+  .file-field input{display:none;}
+  .field-hint{font-size:12px; color:var(--muted); margin-top:6px;}
+
+  .form-submit{width:100%; justify-content:center; margin-top:6px;}
+  .form-note{display:flex; align-items:center; gap:8px; margin-top:16px; font-size:12.5px; color:var(--muted);}
+  .form-note svg{width:14px; height:14px; stroke:var(--muted); flex:none;}
+
+  .form-success{display:none; text-align:center; padding:40px 20px;}
+  .form-success.show{display:block;}
+  .form-success .check{width:64px; height:64px; border-radius:50%; background:var(--sky-100); display:flex; align-items:center; justify-content:center; margin:0 auto 18px;}
+  .form-success .check svg{width:28px; height:28px; stroke:var(--blue-600);}
+  .form-success h3{font-size:19px; margin-bottom:8px;}
+  .form-success p{font-size:14.5px;}
+  .form-card.is-submitted .field-set{display:none;}
+  .form-error{display:none; background:#fdecec; border:1px solid #f3b9b9; color:#a12727; font-size:13px; border-radius:10px; padding:12px 14px; margin-bottom:16px;}
+  .form-error.show{display:block;}
+
+  @media(max-width:900px){
+    .form-shell{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+  }
+
+  /* FOOTER */
+  footer{background:#080f18; color:rgba(255,255,255,.68); padding:70px 0 26px;}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr 1.2fr; gap:40px; padding-bottom:46px; border-bottom:1px solid rgba(255,255,255,.08);}
+  .footer-brand p{color:rgba(255,255,255,.5); font-size:14px; margin-top:16px; max-width:270px;}
+  footer h4{color:#fff; font-size:13px; letter-spacing:.05em; text-transform:uppercase; font-weight:700; margin-bottom:18px;}
+  footer ul li{margin-bottom:12px;}
+  footer ul li a{font-size:14px; color:rgba(255,255,255,.62); transition:color .18s ease;}
+  footer ul li a:hover{color:var(--gold);}
+  .footer-contact-box{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px;}
+  .footer-contact-box p{color:rgba(255,255,255,.55); font-size:13.5px; margin-bottom:14px;}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:24px; flex-wrap:wrap; gap:12px;}
+  .footer-bottom p{color:rgba(255,255,255,.4); font-size:13px;}
+  .footer-bottom a{font-size:13px; color:rgba(255,255,255,.55);}
+  @media(max-width:980px){ .footer-grid{grid-template-columns:1fr 1fr; row-gap:34px;} }
+
+  /* MOBILE NAV */
+  @media(max-width:1080px){
+    nav.primary-nav{position:fixed; inset:0 0 0 auto; width:min(340px,86vw); height:100vh; background:#fff; padding:90px 26px 26px; z-index:200; transform:translateX(100%); transition:transform .3s ease; box-shadow:-14px 0 40px rgba(0,0,0,.16); overflow-y:auto;}
+    nav.primary-nav.open{transform:translateX(0);}
+    nav.primary-nav > ul{flex-direction:column; align-items:stretch; gap:2px;}
+    nav.primary-nav > ul > li > a{padding:14px 4px; font-size:16px; border-bottom:1px solid var(--line); border-radius:0; justify-content:space-between;}
+    .dropdown{position:static; opacity:1; visibility:visible; transform:none; box-shadow:none; border:none; display:none; background:var(--sky-50);}
+    li.has-drop.open .dropdown{display:block;}
+    .mmenu-btn{display:flex;}
+    .nav-scrim{position:fixed; inset:0; background:rgba(4,12,20,.5); z-index:199; opacity:0; visibility:hidden; transition:opacity .3s ease;}
+    .nav-scrim.show{opacity:1; visibility:visible;}
+  }
+  @media(max-width:640px){ .wrap{padding:0 18px;} }
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="wrap header-inner">
+    <a href="index.html" class="logo">
+      <img src="logo.webp" alt="Conecta Invest" width="161" height="59">
+    </a>
+    <div class="nav-scrim" id="navScrim"></div>
+    <nav class="primary-nav" id="primaryNav">
+      <ul>
+        <li><a href="index.html">Nosotros</a></li>
+        <li class="has-drop">
+          <a href="unete-al-equipo.html">Únete al equipo <svg viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6"/></svg></a>
+          <div class="dropdown">
+            <a href="soy-oficina-de-corretaje.html">Soy Oficina de Corretaje<span>Súmate como corredora</span></a>
+            <a href="master-broker.html">Master Broker<span>Lidera un equipo comercial</span></a>
+            <a href="broker-independiente.html">Broker Independiente<span>Vende con respaldo Conecta</span></a>
+          </div>
+        </li>
+        <li><a href="soy-inmobiliaria.html">Soy Inmobiliaria</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="propiedades.html" class="btn btn-outline btn-sm">Ver propiedades</a>
+      <span class="divider"></span>
+      <a href="https://dashboard.conectainvest.cl/" class="btn btn-navy btn-sm">Mi cuenta</a>
+      <button class="mmenu-btn" id="mmenuBtn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Nosotros</a> / <span>Soy Inmobiliaria</span></div>
+    <h1>¿Eres <b>Inmobiliaria</b>? Vende tu stock con nosotros</h1>
+    <p class="sub">Tu stock disponible con más opciones de venta, brokers especializados. Gestiona tus propiedades, sigue las cotizaciones de tus colaboradores y más.</p>
+  </div>
+</section>
+
+
+<section class="section bg-white" style="background:#fff;">
+  <div class="wrap">
+    <div class="sec-title">
+      <h2>Aquí es donde realmente se mueve <span style="color:var(--blue-600);">el mercado inmobiliario</span></h2>
+      <p>El negocio inmobiliario no depende solo de publicaciones. Depende de la capacidad de distribuir correctamente el stock. En Conecta Invest conectamos inmobiliarias, brokers e inversionistas en un solo ecosistema, permitiendo que las oportunidades circulen, se gestionen y se concreten.</p>
+    </div>
+    <div class="why-grid">
+      <article class="why-card">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></div>
+        <h3>Un solo lugar para toda tu información</h3>
+        <p>Revisa tus métricas, gestiona tus propiedades, sigue a tus colaboradores, imprime reportes y cotiza en línea.</p>
+      </article>
+      <article class="why-card">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div>
+        <h3>Acceso controlado</h3>
+        <p>Tienes la seguridad de que tu stock estará protegido, junto con tus datos y los de tu equipo.</p>
+      </article>
+      <article class="why-card">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16.5 5.3c1.5.5 2.6 1.9 2.6 3.6 0 1.7-1.1 3.1-2.6 3.6"/><path d="M18.5 14.4c2.3.6 4 2.7 4 5.6"/></svg></div>
+        <h3>Sigue a tu equipo</h3>
+        <p>Revisa los movimientos, gestiones, rendimiento y más de tus colaboradores.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ FORM ============ -->
+<section class="form-section">
+  <div class="wrap">
+    
+    <div class="form-shell">
+      <div class="form-aside">
+  <h2>Únete <span style="color:var(--blue-600);">HOY</span> y vende tu stock</h2>
+  <p>Tu stock disponible con más opciones de venta, brokers especializados. Gestiona tus propiedades, sigue las cotizaciones de tus colaboradores y más.</p>
+  <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg><div><b>Más canales de venta</b><p>Tu stock circula por toda la red de brokers y oficinas de Conecta Invest.</p></div></div>
+  <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><div><b>Datos protegidos</b><p>Acceso controlado a tu información y la de tu equipo.</p></div></div>
+  <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 4h6a1 1 0 011 1v1H8V5a1 1 0 011-1Z"/><rect x="5" y="6" width="14" height="15" rx="2"/><path d="M9 12h6M9 16h4"/></svg><div><b>Reportes y seguimiento</b><p>Sigue cotizaciones y rendimiento desde el dashboard.</p></div></div>
+</div>
+      <div class="form-card">
+        <div id="formError" class="form-error">No pudimos enviar tu formulario. Inténtalo nuevamente o escríbenos directo a este correo.</div>
+        <form id="leadForm" action="https://formspree.io/f/CRISTIAN_FORM_ID" method="POST" data-submit-label="Unirme">
+          <input type="hidden" name="_subject" value="Nueva inmobiliaria interesada">
+          <input type="text" name="_gotcha" style="display:none">
+          <div class="field-set">
+            <div class="field-row"><div class="field"><label>Nombre *</label><input type="text" name="nombre" required></div><div class="field"><label>Nombre de inmobiliaria *</label><input type="text" name="inmobiliaria" required></div></div><div class="field-row"><div class="field"><label>Correo electrónico *</label><input type="email" name="email" required></div><div class="field"><label>Teléfono *</label><input type="tel" name="telefono" required></div></div><div class="field-row"><div class="field"><label>¿Cuentas con web propia? <span class="opt">(opcional)</span></label><select name="web_propia">
+          <option value="">Selecciona…</option>
+          <option>Sí</option>
+          <option>No</option>
+</select></div><div class="field"><label>¿Cuántos proyectos tienes en stock? <span class="opt">(opcional)</span></label><select name="proyectos_stock">
+          <option value="">Selecciona…</option>
+          <option>1 a 5</option>
+          <option>6 a 15</option>
+          <option>16 a 30</option>
+          <option>Más de 30</option>
+    </select></div></div><div class="field-row"><div class="field"><label>Ciudad <span class="opt">(opcional)</span></label><input type="text" name="ciudad"></div><div class="field"><label>País <span class="opt">(opcional)</span></label><select name="pais"><option value="">Selecciona…</option>
+          <option value="Chile" selected>Chile</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Perú">Perú</option>
+          <option value="Colombia">Colombia</option>
+          <option value="México">México</option>
+          <option value="España">España</option>
+          <option value="Estados Unidos">Estados Unidos</option>
+          <option value="Otro">Otro</option>
+</select></div></div>
+            <button type="submit" class="btn btn-navy form-submit">Unirme</button>
+            <div class="form-note"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>Tus datos solo se usan para contactarte sobre esta postulación.</div>
+          </div>
+        </form>
+        <div id="formSuccess" class="form-success">
+          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3>¡Solicitud enviada!</h3>
+          <p>Gracias por sumar tu inmobiliaria a Conecta Invest. Un ejecutivo revisará tu información y te contactará a la brevedad.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img src="logo.webp" alt="Conecta Invest" width="161" height="59">
+        </a>
+        <p>Plataforma de distribución inmobiliaria que centraliza stock de distintas inmobiliarias y lo activa a través de una red comercial experta.</p>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="index.html">Nosotros</a></li>
+          <li><a href="propiedades.html">Ver propiedades</a></li>
+          <li><a href="soy-inmobiliaria.html">Soy Inmobiliaria</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Únete al equipo</h4>
+        <ul>
+          <li><a href="soy-oficina-de-corretaje.html">Oficina de Corretaje</a></li>
+          <li><a href="master-broker.html">Master Broker</a></li>
+          <li><a href="broker-independiente.html">Broker Independiente</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Acceso rápido</h4>
+        <div class="footer-contact-box">
+          <p>Ingresa a tu cuenta o dashboard de gestión.</p>
+          <a href="https://dashboard.conectainvest.cl/" class="btn btn-navy btn-sm" style="width:100%;">Ir a Mi cuenta</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Conecta Invest. Todos los derechos reservados.</p>
+      <a href="https://dashboard.conectainvest.cl/">dashboard.conectainvest.cl</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  const nav = document.getElementById('primaryNav');
+  const mbtn = document.getElementById('mmenuBtn');
+  const scrim = document.getElementById('navScrim');
+  const toggleNav = () => { nav.classList.toggle('open'); scrim.classList.toggle('show'); };
+  mbtn.addEventListener('click', toggleNav);
+  scrim.addEventListener('click', toggleNav);
+  document.querySelectorAll('li.has-drop > a').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      if(window.innerWidth <= 1080){ e.preventDefault(); a.parentElement.classList.toggle('open'); }
+    });
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+
+<script>
+  const form = document.getElementById('leadForm');
+  const errorBox = document.getElementById('formError');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.classList.remove('show');
+    const submitBtn = form.querySelector('button[type=submit]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.closest('.form-card').classList.add('is-submitted');
+        document.getElementById('formSuccess').classList.add('show');
+      } else {
+        throw new Error('submit failed');
+      }
+    } catch (err) {
+      errorBox.classList.add('show');
+      submitBtn.disabled = false;
+      submitBtn.textContent = form.dataset.submitLabel;
+    }
+  });
+</script>
+
+
+</body>
+</html>
