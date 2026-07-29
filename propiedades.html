@@ -196,7 +196,19 @@
   .badge.featured{left:16px; background:var(--gold); color:#fff;}
   .badge.op{right:16px; background:var(--navy-950); color:#fff;}
   .badge.op.rent{background:var(--blue-600);}
+  .badge.disp-inmediata{left:16px; background:#0d9e6e; color:#fff;}
+  .badge.disp-pronta{left:16px; background:#0369a1; color:#fff;}
+  .badge.disp-futura{left:16px; background:#6366f1; color:#fff;}
   .price-tag{position:absolute; left:18px; bottom:16px; z-index:2; color:#fff; font-weight:800; font-size:19px; text-shadow:0 2px 10px rgba(0,0,0,.55);}
+  .prop-inmo{font-size:11px; color:var(--blue-600); font-weight:700; text-transform:uppercase; letter-spacing:.03em; margin-bottom:6px;}
+  .prop-actions{display:flex; gap:10px; margin-top:18px; padding-top:16px; border-top:1px solid var(--line);}
+  .prop-actions .btn{flex:1; padding:10px 12px; font-size:12.5px;}
+  .prop-skeleton{background:var(--paper); border:1px solid var(--line); border-radius:18px; height:360px; animation:ciPulse 1.5s ease-in-out infinite;}
+  @keyframes ciPulse{0%,100%{opacity:1;} 50%{opacity:.5;}}
+  .prop-empty{grid-column:1/-1; text-align:center; padding:60px 20px;}
+  .prop-empty-icon{font-size:34px; margin-bottom:12px;}
+  .prop-empty-text{font-size:15px; font-weight:700; color:var(--navy-950);}
+  .prop-empty-sub{font-size:13px; color:var(--muted); margin-top:6px;}
   .prop-media::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(4,14,24,.55), transparent 45%);}
 
   .prop-body{padding:22px 22px 24px;}
@@ -277,7 +289,7 @@
             <a href="broker-independiente.html">Broker Independiente<span>Vende con respaldo Conecta</span></a>
           </div>
         </li>
-        <li><a href="soy-inmobiliaria.html">Vender mi Stock</a></li>
+        <li><a href="soy-inmobiliaria.html">Soy Inmobiliaria</a></li>
         <li><a href="contacto.html">Contacto</a></li>
       </ul>
     </nav>
@@ -309,73 +321,55 @@
 
       <div class="filter-field">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
-        <select>
-          <option>Ciudad / Comuna</option>
-          <option>Santiago</option>
-          <option>Valparaíso</option>
-          <option>Concepción</option>
-        </select>
-      </div>
-
-      <div class="filter-field">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg>
-        <select>
-          <option>Comuna (unidades)</option>
-          <option>Las Condes</option>
-          <option>Providencia</option>
-          <option>Ñuñoa</option>
-          <option>Vitacura</option>
-          <option>Huechuraba</option>
+        <select id="fCiudad">
+          <option value="">Ciudad / Comuna</option>
         </select>
       </div>
 
       <div class="filter-field">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-        <select>
-          <option>Tipo</option>
-          <option>Departamento</option>
-          <option>Casa</option>
-          <option>Local comercial</option>
-          <option>Oficina</option>
+        <select id="fTipo">
+          <option value="">Tipo</option>
+          <option value="departamento">Departamento</option>
+          <option value="casa">Casa</option>
+          <option value="local">Local comercial</option>
+          <option value="oficina">Oficina</option>
         </select>
       </div>
 
       <div class="filter-field">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg>
-        <select>
-          <option>Operación</option>
-          <option>Venta</option>
-          <option>Arriendo</option>
+        <select id="fOperacion">
+          <option value="">Operación</option>
+          <option value="venta">Venta</option>
+          <option value="arriendo">Arriendo</option>
         </select>
       </div>
 
       <div class="filter-field">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>
-        <select>
-          <option>Habitaciones</option>
-          <option>1 habitación</option>
-          <option>2 habitaciones</option>
-          <option>3 habitaciones</option>
-          <option>4+ habitaciones</option>
+        <select id="fHabitaciones">
+          <option value="">Habitaciones</option>
+          <option value="1">1 habitación</option>
+          <option value="2">2 habitaciones</option>
+          <option value="3">3 habitaciones</option>
+          <option value="4">4+ habitaciones</option>
         </select>
       </div>
 
       <div class="filter-field">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="4" y="9" width="16" height="12" rx="1.5"/><path d="M9 9V6a3 3 0 016 0v3"/></svg>
-        <select>
-          <option>Inmobiliaria</option>
-          <option>Inmobiliaria Andes</option>
-          <option>Master Broker RM</option>
-          <option>María Jara — Broker</option>
+        <select id="fInmobiliaria">
+          <option value="">Inmobiliaria</option>
         </select>
       </div>
 
       <div class="filter-actions">
-        <button class="btn-search" type="button">
+        <button class="btn-search" type="button" id="btnFiltrar">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
           Buscar
         </button>
-        <button class="btn-clear" type="button">
+        <button class="btn-clear" type="button" id="btnLimpiar">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg>
           Limpiar
         </button>
@@ -385,209 +379,41 @@
   </div>
 </div>
 
-<!-- ============ RESULTS + GRID ============ -->
+<!-- ============ RESULTS + GRID (datos en vivo desde Supabase) ============ -->
 <div class="wrap">
   <div class="results-bar">
-    <div class="results-count">9 propiedades <span>encontradas</span></div>
+    <div class="results-count" id="resultsCount">Cargando…</div>
     <div class="results-tools">
       <div class="sort-field">
         Ordenar por
-        <select>
-          <option>Más recientes</option>
-          <option>Precio: menor a mayor</option>
-          <option>Precio: mayor a menor</option>
+        <select id="fOrden">
+          <option value="recientes">Más recientes</option>
+          <option value="precio_asc">Precio: menor a mayor</option>
+          <option value="precio_desc">Precio: mayor a menor</option>
         </select>
       </div>
       <button class="btn-map-toggle" id="mapToggle" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 20l-6-2V4l6 2m0 14 6-2m-6 2V6m6 12 6 2V6l-6-2m0 16V4m0 2L9 4"/></svg>
         <span id="mapToggleLabel">Ver mapa</span>
       </button>
-      <div class="view-toggle">
-        <button class="active" aria-label="Vista grilla"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button>
-        <button aria-label="Vista lista"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-      </div>
     </div>
   </div>
 
   <div class="results-layout" id="resultsLayout">
-  <div>
-  <div class="prop-grid">
-
-    <article class="prop-card" data-lat="-33.4089" data-lng="-70.5693" data-title="Edificio Las Condes Vista" data-price="UF 4.850">
-      <div class="prop-media">
-        <span class="badge featured">Destacada</span>
-        <span class="badge op">Venta</span>
-        <span class="price-tag">UF 4.850</span>
-        <img src="https://images.unsplash.com/photo-1512845296467-183ccf124347?auto=format&fit=crop&w=800&q=75" alt="Edificio residencial moderno">
+    <div>
+      <div class="prop-grid" id="propGrid">
+        <div class="prop-skeleton"></div>
+        <div class="prop-skeleton"></div>
+        <div class="prop-skeleton"></div>
+        <div class="prop-skeleton"></div>
+        <div class="prop-skeleton"></div>
+        <div class="prop-skeleton"></div>
       </div>
-      <div class="prop-body">
-        <h3>Edificio Las Condes Vista</h3>
-        <div class="prop-loc"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>Las Condes, Santiago</div>
-        <div class="prop-specs">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>3</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>92 m²</span>
-        </div>
-        </div>
-    </article>
+    </div>
 
-    <article class="prop-card" data-lat="-33.4558" data-lng="-70.5989" data-title="Parque Ñuñoa Living" data-price="$680.000">
-      <div class="prop-media">
-        <span class="badge featured">Destacada</span>
-        <span class="badge op rent">Arriendo</span>
-        <span class="price-tag">$680.000</span>
-        <img src="https://images.unsplash.com/photo-1521208059781-bcf3fd4d1245?auto=format&fit=crop&w=800&q=75" alt="Edificio residencial con balcones">
-      </div>
-      <div class="prop-body">
-        <h3>Parque Ñuñoa Living</h3>
-        <div class="prop-loc"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>Ñuñoa, Santiago</div>
-        <div class="prop-specs">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>2</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>1</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>58 m²</span>
-        </div>
-        </div>
-    </article>
-
-    <article class="prop-card" data-lat="-33.3898" data-lng="-70.5651" data-title="Vitacura Corporate Towers" data-price="UF 7.200">
-      <div class="prop-media">
-        <span class="badge featured">Destacada</span>
-        <span class="badge op">Venta</span>
-        <span class="price-tag">UF 7.200</span>
-        <img src="https://images.unsplash.com/photo-1525953776754-6c4b7ee655ab?auto=format&fit=crop&w=800&q=75" alt="Condominio de altura">
-      </div>
-      <div class="prop-body">
-        <h3>Vitacura Corporate Towers</h3>
-        <div class="prop-loc"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>Vitacura, Santiago</div>
-        <div class="prop-specs">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>4</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>3</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>136 m²</span>
-        </div>
-        </div>
-    </article>
-
-    <article class="prop-card" data-lat="-33.4263" data-lng="-70.6142" data-title="Providencia Central Park" data-price="UF 3.390">
-      <div class="prop-media">
-        <span class="badge op">Venta</span>
-        <span class="price-tag">UF 3.390</span>
-        <img src="https://images.unsplash.com/photo-1568822240459-9400e58f710f?auto=format&fit=crop&w=800&q=75" alt="Edificio blanco moderno">
-      </div>
-      <div class="prop-body">
-        <h3>Providencia Central Park</h3>
-        <div class="prop-loc"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>Providencia, Santiago</div>
-        <div class="prop-specs">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>2</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>64 m²</span>
-        </div>
-        </div>
-    </article>
-
-    <article class="prop-card" data-lat="-33.3667" data-lng="-70.6333" data-title="Torre Manquehue Norte" data-price="$920.000">
-      <div class="prop-media">
-        <span class="badge op rent">Arriendo</span>
-        <span class="price-tag">$920.000</span>
-        <img src="https://images.unsplash.com/photo-1514895413746-feb3d266273d?auto=format&fit=crop&w=800&q=75" alt="Edificio color arena">
-      </div>
-      <div class="prop-body">
-        <h3>Torre Manquehue Norte</h3>
-        <div class="prop-loc"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>Huechuraba, Santiago</div>
-        <div class="prop-specs">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>3</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>88 m²</span>
-        </div>
-        </div>
-    </article>
-
-    <article class="prop-card" data-lat="-33.4189" data-lng="-70.5850" data-title="Costanera Business Loft" data-price="UF 5.980">
-      <div class="prop-media">
-        <span class="badge featured">Destacada</span>
-        <span class="badge op">Venta</span>
-        <span class="price-tag">UF 5.980</span>
-        <img src="https://images.unsplash.com/photo-1696341613952-132b7e85176d?auto=format&fit=crop&w=800&q=75" alt="Edificio de inversión">
-      </div>
-      <div class="prop-body">
-        <h3>Costanera Business Loft</h3>
-        <div class="prop-loc"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>Providencia, Santiago</div>
-        <div class="prop-specs">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>1</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>1</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>45 m²</span>
-        </div>
-        </div>
-    </article>
-
-    <article class="prop-card" data-lat="-33.2814" data-lng="-70.6819" data-title="Casa Colinas del Sol" data-price="UF 2.980">
-      <div class="prop-media">
-        <span class="badge op">Venta</span>
-        <span class="price-tag">UF 2.980</span>
-        <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=800&q=75" alt="Casa moderna">
-      </div>
-      <div class="prop-body">
-        <h3>Casa Colinas del Sol</h3>
-        <div class="prop-loc"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>Chicureo, Colina</div>
-        <div class="prop-specs">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>4</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>3</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>210 m²</span>
-        </div>
-        </div>
-    </article>
-
-    <article class="prop-card" data-lat="-33.4569" data-lng="-70.6968" data-title="Estación Central Suites" data-price="$540.000">
-      <div class="prop-media">
-        <span class="badge op rent">Arriendo</span>
-        <span class="price-tag">$540.000</span>
-        <img src="https://images.unsplash.com/photo-1525953776754-6c4b7ee655ab?auto=format&fit=crop&w=800&q=75&sat=-20" alt="Departamento céntrico">
-      </div>
-      <div class="prop-body">
-        <h3>Estación Central Suites</h3>
-        <div class="prop-loc"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>Estación Central, Santiago</div>
-        <div class="prop-specs">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 18v2M21 18v2M3 12V8a2 2 0 012-2h5v4"/></svg>1</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>1</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>38 m²</span>
-        </div>
-        </div>
-    </article>
-
-    <article class="prop-card" data-lat="-33.4133" data-lng="-70.5772" data-title="Oficinas Nueva Las Condes" data-price="UF 9.400">
-      <div class="prop-media">
-        <span class="badge featured">Destacada</span>
-        <span class="badge op">Venta</span>
-        <span class="price-tag">UF 9.400</span>
-        <img src="https://images.unsplash.com/photo-1521208059781-bcf3fd4d1245?auto=format&fit=crop&w=800&q=75&sat=-15" alt="Edificio corporativo">
-      </div>
-      <div class="prop-body">
-        <h3>Oficinas Nueva Las Condes</h3>
-        <div class="prop-loc"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>Las Condes, Santiago</div>
-        <div class="prop-specs">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h6v6M21 21h-6v-6M21 3l-7 7M3 21l7-7"/></svg>180 m²</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3Z"/><path d="M6 12V6a2 2 0 012-2h1"/><path d="M4 19v2M18 19v2"/></svg>2</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg>Oficina</span>
-        </div>
-        </div>
-    </article>
-
-  </div>
-
-  <!-- ============ PAGINATION ============ -->
-  <nav class="pagination" aria-label="Paginación de resultados">
-    <a href="#" class="nav">← Anterior</a>
-    <a href="#" class="active">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
-    <a href="#" class="nav">Siguiente →</a>
-  </nav>
-  </div>
-
-  <aside class="map-panel" id="mapPanel">
-    <div id="propMap"></div>
-  </aside>
+    <aside class="map-panel" id="mapPanel">
+      <div id="propMap"></div>
+    </aside>
   </div>
 </div>
 
@@ -607,7 +433,7 @@
         <ul>
           <li><a href="index.html">Nosotros</a></li>
           <li><a href="propiedades.html">Ver propiedades</a></li>
-          <li><a href="soy-inmobiliaria.html">Vender mi Stock</a></li>
+          <li><a href="soy-inmobiliaria.html">Soy Inmobiliaria</a></li>
           <li><a href="contacto.html">Contacto</a></li>
         </ul>
       </div>
@@ -635,6 +461,7 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="ci-data.js"></script>
 <script>
   const nav = document.getElementById('primaryNav');
   const btn = document.getElementById('mmenuBtn');
@@ -651,10 +478,100 @@
 
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // ============ DATOS + FILTROS (Supabase) ============
+  const propGrid = document.getElementById('propGrid');
+  const resultsCount = document.getElementById('resultsCount');
+  let TODOS_PROYECTOS = [];
+  let UNIDADES_POR_PROYECTO = {};
+  let CURRENT_LIST = [];
+
+  function poblarSelect(id, valores){
+    const sel = document.getElementById(id);
+    valores.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v.toLowerCase();
+      opt.textContent = v;
+      sel.appendChild(opt);
+    });
+  }
+
+  function aplicarFiltros(){
+    const ciudad = document.getElementById('fCiudad').value;
+    const tipo = document.getElementById('fTipo').value;
+    const operacion = document.getElementById('fOperacion').value;
+    const hab = document.getElementById('fHabitaciones').value;
+    const inmo = document.getElementById('fInmobiliaria').value;
+    const orden = document.getElementById('fOrden').value;
+
+    let lista = TODOS_PROYECTOS.filter(p => {
+      const unidades = UNIDADES_POR_PROYECTO[p.id] || [];
+      if(ciudad && !(p.ubicacion||'').toLowerCase().includes(ciudad)) return false;
+      if(tipo && !(p.tipo||'').toLowerCase().includes(tipo)) return false;
+      if(operacion && !(p.operacion||'').toLowerCase().includes(operacion)) return false;
+      if(inmo && (p.inmobiliaria_nombre||'').toLowerCase() !== inmo) return false;
+      if(hab){
+        const habNum = hab === '4' ? null : parseInt(hab, 10);
+        const match = unidades.some(u => habNum ? Number(u.habitaciones) === habNum : Number(u.habitaciones) >= 4);
+        if(!match) return false;
+      }
+      return true;
+    });
+
+    if(orden === 'precio_asc' || orden === 'precio_desc'){
+      const minPrecio = p => {
+        const precios = (UNIDADES_POR_PROYECTO[p.id]||[]).map(u=>Number(u.precio_uf)||0).filter(x=>x>0);
+        return precios.length ? Math.min(...precios) : Infinity;
+      };
+      lista.sort((a,b) => orden === 'precio_asc' ? minPrecio(a)-minPrecio(b) : minPrecio(b)-minPrecio(a));
+    }
+
+    renderGrid(lista);
+  }
+
+  function renderGrid(lista){
+    CURRENT_LIST = lista;
+    resultsCount.innerHTML = `<b>${lista.length}</b> propiedad${lista.length !== 1 ? 'es' : ''} <span>encontrada${lista.length !== 1 ? 's' : ''}</span>`;
+    if(!lista.length){
+      propGrid.innerHTML = ciEmptyHTML('Sin resultados', 'Prueba cambiando los filtros.');
+    } else {
+      propGrid.innerHTML = lista.map(p => ciCardHTML(p, UNIDADES_POR_PROYECTO[p.id] || [])).join('');
+    }
+    if(leafletMap) refreshMapMarkers(lista);
+  }
+
+  (async function cargarDatos(){
+    try {
+      TODOS_PROYECTOS = await ciFetchProyectos();
+      UNIDADES_POR_PROYECTO = await ciFetchUnidadesPorProyectos(TODOS_PROYECTOS.map(p => p.id));
+
+      const ciudades = [...new Set(TODOS_PROYECTOS.map(p => (p.ubicacion||'').split(',')[0].trim()).filter(Boolean))].sort();
+      const inmobiliarias = [...new Set(TODOS_PROYECTOS.map(p => p.inmobiliaria_nombre).filter(Boolean))].sort();
+      poblarSelect('fCiudad', ciudades);
+      poblarSelect('fInmobiliaria', inmobiliarias);
+
+      renderGrid(TODOS_PROYECTOS);
+    } catch(e) {
+      propGrid.innerHTML = ciErrorHTML('No pudimos cargar las propiedades. Intenta más tarde.');
+      resultsCount.textContent = '';
+      console.error('Conecta Invest — propiedades:', e);
+    }
+  })();
+
+  document.getElementById('btnFiltrar').addEventListener('click', aplicarFiltros);
+  ['fCiudad','fTipo','fOperacion','fHabitaciones','fInmobiliaria','fOrden'].forEach(id=>{
+    document.getElementById(id).addEventListener('change', aplicarFiltros);
+  });
+  document.getElementById('btnLimpiar').addEventListener('click', () => {
+    ['fCiudad','fTipo','fOperacion','fHabitaciones','fInmobiliaria'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('fOrden').value = 'recientes';
+    renderGrid(TODOS_PROYECTOS);
+  });
+
   // ============ MAP TOGGLE ============
   const mapToggle = document.getElementById('mapToggle');
   const resultsLayout = document.getElementById('resultsLayout');
   let leafletMap = null;
+  let markerLayer = null;
 
   function initMap(){
     if(leafletMap) return;
@@ -663,9 +580,14 @@
       attribution: '&copy; OpenStreetMap',
       maxZoom: 19
     }).addTo(leafletMap);
+    markerLayer = L.layerGroup().addTo(leafletMap);
+  }
 
+  function refreshMapMarkers(lista){
+    if(!markerLayer) return;
+    markerLayer.clearLayers();
     const bounds = [];
-    document.querySelectorAll('.prop-card[data-lat]').forEach(card=>{
+    document.querySelectorAll('#propGrid .prop-card[data-lat]').forEach(card=>{
       const lat = parseFloat(card.dataset.lat);
       const lng = parseFloat(card.dataset.lng);
       const title = card.dataset.title;
@@ -679,12 +601,11 @@
         iconAnchor: [30, 14]
       });
 
-      const marker = L.marker([lat, lng], { icon }).addTo(leafletMap);
+      const marker = L.marker([lat, lng], { icon }).addTo(markerLayer);
       marker.bindPopup(`<div class="map-pin-price">${price}</div><div class="map-pin-title">${title}</div>`);
       marker.on('click', () => card.scrollIntoView({behavior:'smooth', block:'center'}));
       bounds.push([lat, lng]);
     });
-
     if(bounds.length) leafletMap.fitBounds(bounds, { padding:[40,40] });
   }
 
@@ -694,7 +615,7 @@
     mapToggle.querySelector('#mapToggleLabel').textContent = isOn ? 'Ocultar mapa' : 'Ver mapa';
     if(isOn){
       initMap();
-      setTimeout(() => leafletMap && leafletMap.invalidateSize(), 250);
+      setTimeout(() => { leafletMap && leafletMap.invalidateSize(); refreshMapMarkers(CURRENT_LIST); }, 250);
     }
   });
 </script>
