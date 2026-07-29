@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
   :root{
     --navy-950:#071b2e;
@@ -153,6 +154,36 @@
   .view-toggle button.active{background:var(--navy-950);}
   .view-toggle button svg{width:16px; height:16px; stroke:var(--muted);}
   .view-toggle button.active svg{stroke:#fff;}
+
+  .btn-map-toggle{
+    display:flex; align-items:center; gap:8px; padding:9px 18px; border-radius:10px;
+    border:1.5px solid var(--line); background:#fff; color:var(--navy-950); font-weight:700; font-size:13.5px;
+    cursor:pointer; transition:all .18s ease;
+  }
+  .btn-map-toggle svg{width:16px; height:16px; stroke:var(--blue-600);}
+  .btn-map-toggle:hover{border-color:var(--blue-500);}
+  .btn-map-toggle.active{background:var(--navy-950); border-color:var(--navy-950); color:#fff;}
+  .btn-map-toggle.active svg{stroke:#fff;}
+
+  /* ============ RESULTS LAYOUT (list vs list+map) ============ */
+  .results-layout{display:block;}
+  .results-layout.map-on{display:grid; grid-template-columns:1fr 440px; gap:28px; align-items:start;}
+  .map-panel{display:none;}
+  .results-layout.map-on .map-panel{
+    display:block; position:sticky; top:96px; height:calc(100vh - 130px); min-height:460px;
+    border-radius:18px; overflow:hidden; border:1px solid var(--line); box-shadow:0 18px 44px rgba(11,44,72,.08);
+  }
+  #propMap{width:100%; height:100%; background:var(--paper);}
+  .leaflet-popup-content{font-family:var(--font);}
+  .map-pin-price{font-weight:800; color:var(--navy-950); font-size:13.5px; margin-bottom:2px;}
+  .map-pin-title{font-size:12.5px; color:var(--muted);}
+  .results-layout.map-on .prop-grid{grid-template-columns:repeat(2,1fr);}
+
+  @media(max-width:1180px){
+    .results-layout.map-on{grid-template-columns:1fr; }
+    .results-layout.map-on .map-panel{position:relative; top:0; height:420px; order:-1;}
+    .results-layout.map-on .prop-grid{grid-template-columns:repeat(2,1fr);}
+  }
 
   /* ============ PROPERTY GRID (shared card style) ============ */
   .prop-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
@@ -367,6 +398,10 @@
           <option>Precio: mayor a menor</option>
         </select>
       </div>
+      <button class="btn-map-toggle" id="mapToggle" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 20l-6-2V4l6 2m0 14 6-2m-6 2V6m6 12 6 2V6l-6-2m0 16V4m0 2L9 4"/></svg>
+        <span id="mapToggleLabel">Ver mapa</span>
+      </button>
       <div class="view-toggle">
         <button class="active" aria-label="Vista grilla"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button>
         <button aria-label="Vista lista"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
@@ -374,9 +409,11 @@
     </div>
   </div>
 
+  <div class="results-layout" id="resultsLayout">
+  <div>
   <div class="prop-grid">
 
-    <article class="prop-card">
+    <article class="prop-card" data-lat="-33.4089" data-lng="-70.5693" data-title="Edificio Las Condes Vista" data-price="UF 4.850">
       <div class="prop-media">
         <span class="badge featured">Destacada</span>
         <span class="badge op">Venta</span>
@@ -394,7 +431,7 @@
         </div>
     </article>
 
-    <article class="prop-card">
+    <article class="prop-card" data-lat="-33.4558" data-lng="-70.5989" data-title="Parque Ñuñoa Living" data-price="$680.000">
       <div class="prop-media">
         <span class="badge featured">Destacada</span>
         <span class="badge op rent">Arriendo</span>
@@ -412,7 +449,7 @@
         </div>
     </article>
 
-    <article class="prop-card">
+    <article class="prop-card" data-lat="-33.3898" data-lng="-70.5651" data-title="Vitacura Corporate Towers" data-price="UF 7.200">
       <div class="prop-media">
         <span class="badge featured">Destacada</span>
         <span class="badge op">Venta</span>
@@ -430,7 +467,7 @@
         </div>
     </article>
 
-    <article class="prop-card">
+    <article class="prop-card" data-lat="-33.4263" data-lng="-70.6142" data-title="Providencia Central Park" data-price="UF 3.390">
       <div class="prop-media">
         <span class="badge op">Venta</span>
         <span class="price-tag">UF 3.390</span>
@@ -447,7 +484,7 @@
         </div>
     </article>
 
-    <article class="prop-card">
+    <article class="prop-card" data-lat="-33.3667" data-lng="-70.6333" data-title="Torre Manquehue Norte" data-price="$920.000">
       <div class="prop-media">
         <span class="badge op rent">Arriendo</span>
         <span class="price-tag">$920.000</span>
@@ -464,7 +501,7 @@
         </div>
     </article>
 
-    <article class="prop-card">
+    <article class="prop-card" data-lat="-33.4189" data-lng="-70.5850" data-title="Costanera Business Loft" data-price="UF 5.980">
       <div class="prop-media">
         <span class="badge featured">Destacada</span>
         <span class="badge op">Venta</span>
@@ -482,7 +519,7 @@
         </div>
     </article>
 
-    <article class="prop-card">
+    <article class="prop-card" data-lat="-33.2814" data-lng="-70.6819" data-title="Casa Colinas del Sol" data-price="UF 2.980">
       <div class="prop-media">
         <span class="badge op">Venta</span>
         <span class="price-tag">UF 2.980</span>
@@ -499,7 +536,7 @@
         </div>
     </article>
 
-    <article class="prop-card">
+    <article class="prop-card" data-lat="-33.4569" data-lng="-70.6968" data-title="Estación Central Suites" data-price="$540.000">
       <div class="prop-media">
         <span class="badge op rent">Arriendo</span>
         <span class="price-tag">$540.000</span>
@@ -516,7 +553,7 @@
         </div>
     </article>
 
-    <article class="prop-card">
+    <article class="prop-card" data-lat="-33.4133" data-lng="-70.5772" data-title="Oficinas Nueva Las Condes" data-price="UF 9.400">
       <div class="prop-media">
         <span class="badge featured">Destacada</span>
         <span class="badge op">Venta</span>
@@ -546,6 +583,12 @@
     <a href="#">5</a>
     <a href="#" class="nav">Siguiente →</a>
   </nav>
+  </div>
+
+  <aside class="map-panel" id="mapPanel">
+    <div id="propMap"></div>
+  </aside>
+  </div>
 </div>
 
 <!-- ============ FOOTER ============ -->
@@ -591,6 +634,7 @@
   </div>
 </footer>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
   const nav = document.getElementById('primaryNav');
   const btn = document.getElementById('mmenuBtn');
@@ -606,6 +650,53 @@
   });
 
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ============ MAP TOGGLE ============
+  const mapToggle = document.getElementById('mapToggle');
+  const resultsLayout = document.getElementById('resultsLayout');
+  let leafletMap = null;
+
+  function initMap(){
+    if(leafletMap) return;
+    leafletMap = L.map('propMap', { scrollWheelZoom:false }).setView([-33.42, -70.61], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap',
+      maxZoom: 19
+    }).addTo(leafletMap);
+
+    const bounds = [];
+    document.querySelectorAll('.prop-card[data-lat]').forEach(card=>{
+      const lat = parseFloat(card.dataset.lat);
+      const lng = parseFloat(card.dataset.lng);
+      const title = card.dataset.title;
+      const price = card.dataset.price;
+      if(isNaN(lat) || isNaN(lng)) return;
+
+      const icon = L.divIcon({
+        className: 'prop-pin',
+        html: `<div style="background:#0b2c48;color:#fff;font-weight:800;font-size:11px;padding:6px 10px;border-radius:999px;white-space:nowrap;box-shadow:0 6px 16px rgba(11,44,72,.35);border:2px solid #fff;">${price}</div>`,
+        iconSize: null,
+        iconAnchor: [30, 14]
+      });
+
+      const marker = L.marker([lat, lng], { icon }).addTo(leafletMap);
+      marker.bindPopup(`<div class="map-pin-price">${price}</div><div class="map-pin-title">${title}</div>`);
+      marker.on('click', () => card.scrollIntoView({behavior:'smooth', block:'center'}));
+      bounds.push([lat, lng]);
+    });
+
+    if(bounds.length) leafletMap.fitBounds(bounds, { padding:[40,40] });
+  }
+
+  mapToggle.addEventListener('click', () => {
+    const isOn = resultsLayout.classList.toggle('map-on');
+    mapToggle.classList.toggle('active', isOn);
+    mapToggle.querySelector('#mapToggleLabel').textContent = isOn ? 'Ocultar mapa' : 'Ver mapa';
+    if(isOn){
+      initMap();
+      setTimeout(() => leafletMap && leafletMap.invalidateSize(), 250);
+    }
+  });
 </script>
 </body>
 </html>
