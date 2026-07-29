@@ -73,7 +73,7 @@ const CI_DISP_CLASS = { inmediata: 'disp-inmediata', 'pronta entrega': 'disp-pro
 
 /** Trae los N proyectos más recientes */
 async function ciFetchProyectos(limit) {
-  const url = `${CI_SUPABASE_URL}/rest/v1/proyectos?select=id,nombre,ubicacion,tipo,operacion,disponibilidad,inmobiliaria_nombre,imagen_principal,lat,lng,created_at&order=created_at.desc${limit ? `&limit=${limit}` : ''}`;
+  const url = `${CI_SUPABASE_URL}/rest/v1/proyectos?select=id,nombre,ubicacion,tipo,operacion,disponibilidad,inmobiliaria_nombre,imagen_principal,created_at&order=created_at.desc${limit ? `&limit=${limit}` : ''}`;
   const res = await fetch(url, { headers: CI_HEADERS });
   if (!res.ok) throw new Error('No se pudieron cargar los proyectos');
   return res.json();
