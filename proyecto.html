@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title id="pageTitle">Proyecto — Conecta Invest</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Detalle del proyecto, unidades disponibles y ubicación en el mapa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root{
+    --navy-950:#071b2e; --navy-900:#0b2c48; --navy-800:#123a5e;
+    --blue-600:#1a56a0; --blue-500:#2e6fa8; --sky-100:#eaf2fb; --sky-50:#f3f7fc;
+    --paper:#f5f7fa; --white:#ffffff; --ink:#16283b; --muted:#7c8a9a; --line:#e7ecf1; --gold:#d9a441;
+    --font:"Plus Jakarta Sans", "Inter", sans-serif; --container:1200px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:var(--font); color:var(--ink); background:var(--white); -webkit-font-smoothing:antialiased;}
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{margin:0; padding:0; list-style:none;}
+  .wrap{max-width:var(--container); margin:0 auto; padding:0 24px;}
+  svg{display:block;}
+  h1,h2,h3,h4{font-family:var(--font); font-weight:800; line-height:1.18; margin:0; color:var(--navy-950);}
+  p{margin:0; line-height:1.7; color:var(--muted); font-size:15px;}
+
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:14px 28px; border-radius:999px; font-weight:700; font-size:14.5px; border:2px solid transparent; cursor:pointer; transition:all .2s ease; white-space:nowrap;}
+  .btn-navy{background:var(--navy-900); color:#fff;}
+  .btn-navy:hover{background:var(--blue-600);}
+  .btn-outline{border-color:var(--navy-900); color:var(--navy-900); background:transparent;}
+  .btn-outline:hover{background:var(--navy-900); color:#fff;}
+  .btn-sm{padding:10px 20px; font-size:13px;}
+  .btn[disabled]{opacity:.6; cursor:not-allowed;}
+
+  /* HEADER (igual al resto del sitio) */
+  header{background:#fff; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:100;}
+  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:24px;}
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo img{height:46px; width:auto; display:block; border-radius:10px;}
+  nav.primary-nav > ul{display:flex; align-items:center; gap:4px;}
+  nav.primary-nav > ul > li{position:relative;}
+  nav.primary-nav > ul > li > a{display:flex; align-items:center; gap:6px; padding:10px 16px; border-radius:8px; font-size:14.5px; font-weight:600; color:var(--ink);}
+  nav.primary-nav > ul > li > a:hover{color:var(--blue-600); background:var(--sky-50);}
+  nav.primary-nav > ul > li > a svg{width:10px;}
+  li.has-drop:hover > a svg{transform:rotate(180deg);}
+  .dropdown{position:absolute; top:calc(100% + 10px); left:0; min-width:250px; background:#fff; border-radius:14px; box-shadow:0 20px 45px rgba(11,44,72,.16); padding:10px; opacity:0; visibility:hidden; transform:translateY(6px); transition:all .18s ease; border:1px solid var(--line);}
+  li.has-drop:hover .dropdown{opacity:1; visibility:visible; transform:translateY(0);}
+  .dropdown a{display:flex; flex-direction:column; gap:2px; padding:11px 14px; border-radius:9px; font-weight:600; font-size:14px; color:var(--navy-950);}
+  .dropdown a span{font-family:var(--font); font-weight:400; font-size:12.5px; color:var(--muted);}
+  .dropdown a:hover{background:var(--sky-50);}
+  .header-actions{display:flex; align-items:center; gap:10px;}
+  .header-actions .divider{width:1px; height:22px; background:var(--line);}
+  .mmenu-btn{display:none; width:42px; height:42px; border-radius:10px; border:1px solid var(--line); background:#fff; align-items:center; justify-content:center; cursor:pointer;}
+  .mmenu-btn span{display:block; width:18px; height:2px; background:var(--navy-900); margin:3px auto;}
+
+  /* BREADCRUMB */
+  .breadcrumb-bar{background:var(--paper); padding:18px 0; border-bottom:1px solid var(--line);}
+  .breadcrumb{display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--muted); flex-wrap:wrap;}
+  .breadcrumb a{color:var(--muted); font-weight:600;}
+  .breadcrumb a:hover{color:var(--blue-600);}
+  .breadcrumb span{color:var(--navy-950); font-weight:700;}
+
+  /* HERO DEL PROYECTO */
+  .proj-hero{position:relative; height:min(52vh, 460px); overflow:hidden; background:linear-gradient(135deg,var(--navy-900),var(--blue-500));}
+  .proj-hero img{width:100%; height:100%; object-fit:cover;}
+  .proj-hero .veil{position:absolute; inset:0; background:linear-gradient(0deg, rgba(5,16,27,.82) 0%, rgba(5,16,27,.15) 55%, transparent 100%);}
+  .proj-hero .hero-content{position:absolute; left:0; right:0; bottom:0; padding:36px 0;}
+  .badge-row{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;}
+  .badge-pill{font-size:11.5px; font-weight:700; padding:6px 13px; border-radius:999px; color:#fff;}
+  .badge-pill.op{background:var(--navy-950);}
+  .badge-pill.op.rent{background:var(--blue-600);}
+  .badge-pill.disp-inmediata{background:#0d9e6e;} .badge-pill.disp-pronta{background:#0369a1;} .badge-pill.disp-futura{background:#6366f1;}
+  .proj-hero h1{color:#fff; font-size:clamp(26px,4vw,40px);}
+  .proj-hero .loc{color:rgba(255,255,255,.85); font-size:15px; margin-top:10px; display:flex; align-items:center; gap:8px;}
+  .proj-hero .loc svg{width:16px; height:16px; stroke:#fff;}
+
+  /* CONTENIDO */
+  .proj-body{padding:56px 0 100px;}
+  .proj-layout{display:grid; grid-template-columns:1.5fr 1fr; gap:44px; align-items:start;}
+  .panel{background:#fff; border:1px solid var(--line); border-radius:18px; padding:30px; margin-bottom:26px;}
+  .panel h2{font-size:19px; margin-bottom:16px;}
+  .stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:6px;}
+  .stat-box{background:var(--paper); border-radius:12px; padding:16px; text-align:center;}
+  .stat-box .val{font-size:20px; font-weight:800; color:var(--navy-950);}
+  .stat-box .lbl{font-size:11.5px; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:.03em;}
+  .desc-text{margin-top:16px; font-size:15px; color:var(--ink); line-height:1.75; white-space:pre-line;}
+
+  .unit-row{display:flex; align-items:center; justify-content:space-between; padding:13px 4px; border-bottom:1px solid var(--line); font-size:13.5px; gap:10px; flex-wrap:wrap;}
+  .unit-row:last-child{border-bottom:none;}
+  .unit-info{color:var(--ink); font-weight:600;}
+  .unit-info span{color:var(--muted); font-weight:400;}
+  .unit-price{font-weight:800; color:var(--navy-950); white-space:nowrap;}
+
+  #projMap{width:100%; height:260px; border-radius:14px; overflow:hidden;}
+  .map-note{font-size:12px; color:var(--muted); margin-top:10px; display:flex; align-items:center; gap:6px;}
+  .map-note svg{width:13px; height:13px; stroke:var(--muted); flex:none;}
+
+  .side-sticky{position:sticky; top:96px;}
+  .side-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:26px; box-shadow:0 18px 44px rgba(11,44,72,.08); margin-bottom:26px;}
+  .side-card .price-from-lbl{font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.03em;}
+  .side-card .price-from-val{font-size:28px; font-weight:800; color:var(--navy-950); margin-top:4px;}
+  .side-card .inmo{font-size:13px; color:var(--blue-600); font-weight:700; margin-top:14px; padding-top:14px; border-top:1px solid var(--line);}
+
+  /* FORM (cotizar) */
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:13px; font-weight:700; color:var(--navy-950); margin-bottom:7px;}
+  .field input, .field textarea{width:100%; border:1.5px solid var(--line); border-radius:11px; padding:11px 13px; font-family:var(--font); font-size:14px; color:var(--ink); transition:border-color .18s ease;}
+  .field input:focus, .field textarea:focus{outline:none; border-color:var(--blue-500);}
+  .field textarea{resize:vertical; min-height:80px;}
+  .form-submit{width:100%; justify-content:center;}
+  .form-success{display:none; text-align:center; padding:20px 6px;}
+  .form-success.show{display:block;}
+  .form-success .check{width:52px; height:52px; border-radius:50%; background:var(--sky-100); display:flex; align-items:center; justify-content:center; margin:0 auto 14px;}
+  .form-success .check svg{width:24px; height:24px; stroke:var(--blue-600);}
+  .form-success h3{font-size:16.5px; margin-bottom:6px;}
+  .form-success p{font-size:13.5px;}
+  .side-card.is-submitted .field-set{display:none;}
+  .form-error{display:none; background:#fdecec; border:1px solid #f3b9b9; color:#a12727; font-size:12.5px; border-radius:10px; padding:10px 12px; margin-bottom:14px;}
+  .form-error.show{display:block;}
+
+  .state-msg{text-align:center; padding:100px 20px;}
+  .state-msg h2{font-size:20px; margin-bottom:10px;}
+
+  @media(max-width:980px){
+    .proj-layout{grid-template-columns:1fr;}
+    .side-sticky{position:static;}
+    .stat-row{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* FOOTER */
+  footer{background:#080f18; color:rgba(255,255,255,.68); padding:70px 0 26px;}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr 1.2fr; gap:40px; padding-bottom:46px; border-bottom:1px solid rgba(255,255,255,.08);}
+  .footer-brand p{color:rgba(255,255,255,.5); font-size:14px; margin-top:16px; max-width:270px;}
+  footer h4{color:#fff; font-size:13px; letter-spacing:.05em; text-transform:uppercase; font-weight:700; margin-bottom:18px;}
+  footer ul li{margin-bottom:12px;}
+  footer ul li a{font-size:14px; color:rgba(255,255,255,.62); transition:color .18s ease;}
+  footer ul li a:hover{color:var(--gold);}
+  .footer-contact-box{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px;}
+  .footer-contact-box p{color:rgba(255,255,255,.55); font-size:13.5px; margin-bottom:14px;}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:24px; flex-wrap:wrap; gap:12px;}
+  .footer-bottom p{color:rgba(255,255,255,.4); font-size:13px;}
+  .footer-bottom a{font-size:13px; color:rgba(255,255,255,.55);}
+  @media(max-width:980px){ .footer-grid{grid-template-columns:1fr 1fr; row-gap:34px;} }
+
+  @media(max-width:1080px){
+    nav.primary-nav{position:fixed; inset:0 0 0 auto; width:min(340px,86vw); height:100vh; background:#fff; padding:90px 26px 26px; z-index:200; transform:translateX(100%); transition:transform .3s ease; box-shadow:-14px 0 40px rgba(0,0,0,.16); overflow-y:auto;}
+    nav.primary-nav.open{transform:translateX(0);}
+    nav.primary-nav > ul{flex-direction:column; align-items:stretch; gap:2px;}
+    nav.primary-nav > ul > li > a{padding:14px 4px; font-size:16px; border-bottom:1px solid var(--line); border-radius:0; justify-content:space-between;}
+    .dropdown{position:static; opacity:1; visibility:visible; transform:none; box-shadow:none; border:none; display:none; background:var(--sky-50);}
+    li.has-drop.open .dropdown{display:block;}
+    .mmenu-btn{display:flex;}
+    .nav-scrim{position:fixed; inset:0; background:rgba(4,12,20,.5); z-index:199; opacity:0; visibility:hidden; transition:opacity .3s ease;}
+    .nav-scrim.show{opacity:1; visibility:visible;}
+  }
+  @media(max-width:640px){ .wrap{padding:0 18px;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-inner">
+    <a href="index.html" class="logo"><img src="logo.webp" alt="Conecta Invest" width="161" height="59"></a>
+    <div class="nav-scrim" id="navScrim"></div>
+    <nav class="primary-nav" id="primaryNav">
+      <ul>
+        <li><a href="index.html">Nosotros</a></li>
+        <li class="has-drop">
+          <a href="unete-al-equipo.html">Únete al equipo <svg viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6"/></svg></a>
+          <div class="dropdown">
+            <a href="soy-oficina-de-corretaje.html">Soy Oficina de Corretaje<span>Súmate como corredora</span></a>
+            <a href="master-broker.html">Master Broker<span>Lidera un equipo comercial</span></a>
+            <a href="broker-independiente.html">Broker Independiente<span>Vende con respaldo Conecta</span></a>
+          </div>
+        </li>
+        <li><a href="soy-inmobiliaria.html">Soy Inmobiliaria</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="propiedades.html" class="btn btn-outline btn-sm">Ver propiedades</a>
+      <span class="divider"></span>
+      <a href="https://dashboard.conectainvest.cl/" class="btn btn-navy btn-sm">Mi cuenta</a>
+      <button class="mmenu-btn" id="mmenuBtn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="breadcrumb-bar">
+  <div class="wrap breadcrumb">
+    <a href="index.html">Nosotros</a> / <a href="propiedades.html">Propiedades</a> / <span id="crumbNombre">Proyecto</span>
+  </div>
+</div>
+
+<div id="loadingState" class="state-msg">
+  <h2>Cargando proyecto…</h2>
+  <p>Un momento por favor.</p>
+</div>
+
+<div id="notFoundState" class="state-msg" style="display:none;">
+  <h2>No encontramos este proyecto</h2>
+  <p>Puede que el link esté incompleto o el proyecto ya no esté disponible.</p>
+  <div style="margin-top:20px;"><a href="propiedades.html" class="btn btn-navy">Ver todas las propiedades</a></div>
+</div>
+
+<div id="projectContent" style="display:none;">
+
+  <section class="proj-hero">
+    <img id="heroImg" src="" alt="">
+    <div class="veil"></div>
+    <div class="hero-content">
+      <div class="wrap">
+        <div class="badge-row" id="badgeRow"></div>
+        <h1 id="projNombre">Proyecto</h1>
+        <div class="loc"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span id="projUbicacion"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-body">
+    <div class="wrap proj-layout">
+      <div>
+        <div class="panel">
+          <h2>Sobre este proyecto</h2>
+          <div class="stat-row">
+            <div class="stat-box"><div class="val" id="statUnidades">–</div><div class="lbl">Unidades disp.</div></div>
+            <div class="stat-box"><div class="val" id="statTipo">–</div><div class="lbl">Tipo</div></div>
+            <div class="stat-box"><div class="val" id="statM2">–</div><div class="lbl">Desde m²</div></div>
+          </div>
+          <div class="desc-text" id="descText"></div>
+        </div>
+
+        <div class="panel" id="unitsPanel">
+          <h2>Unidades disponibles</h2>
+          <div id="unitsList"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Ubicación aproximada</h2>
+          <div id="projMap"></div>
+          <div class="map-note" id="mapNote">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+            Ubicación referencial de la comuna.
+          </div>
+        </div>
+      </div>
+
+      <div class="side-sticky">
+        <div class="side-card">
+          <div class="price-from-lbl">Desde</div>
+          <div class="price-from-val" id="sidePrice">Consultar</div>
+          <div class="inmo" id="sideInmo" style="display:none;"></div>
+        </div>
+
+        <div class="side-card" id="cotizar">
+          <div id="formError" class="form-error">No pudimos enviar tu consulta. Inténtalo nuevamente.</div>
+          <form id="quoteForm" action="https://formspree.io/f/CRISTIAN_FORM_ID" method="POST">
+            <input type="hidden" name="_subject" id="formSubject" value="Cotización de proyecto">
+            <input type="hidden" name="proyecto" id="formProyecto" value="">
+            <input type="text" name="_gotcha" style="display:none">
+            <div class="field-set">
+              <h2 style="margin-bottom:16px;">Cotizar este proyecto</h2>
+              <div class="field"><label>Nombre *</label><input type="text" name="nombre" required></div>
+              <div class="field"><label>Correo electrónico *</label><input type="email" name="email" required></div>
+              <div class="field"><label>Teléfono *</label><input type="tel" name="telefono" required></div>
+              <div class="field"><label>Mensaje <span style="color:var(--muted); font-weight:500;">(opcional)</span></label><textarea name="mensaje" placeholder="Cuéntanos qué unidad te interesa…"></textarea></div>
+              <button type="submit" class="btn btn-navy form-submit">Enviar consulta</button>
+            </div>
+          </form>
+          <div id="formSuccess" class="form-success">
+            <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <h3>¡Consulta enviada!</h3>
+            <p>Un ejecutivo de Conecta Invest te contactará a la brevedad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><img src="logo.webp" alt="Conecta Invest" width="161" height="59"></a>
+        <p>Plataforma de distribución inmobiliaria que centraliza stock de distintas inmobiliarias y lo activa a través de una red comercial experta.</p>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="index.html">Nosotros</a></li>
+          <li><a href="propiedades.html">Ver propiedades</a></li>
+          <li><a href="soy-inmobiliaria.html">Soy Inmobiliaria</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Únete al equipo</h4>
+        <ul>
+          <li><a href="soy-oficina-de-corretaje.html">Oficina de Corretaje</a></li>
+          <li><a href="master-broker.html">Master Broker</a></li>
+          <li><a href="broker-independiente.html">Broker Independiente</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Acceso rápido</h4>
+        <div class="footer-contact-box">
+          <p>Ingresa a tu cuenta o dashboard de gestión.</p>
+          <a href="https://dashboard.conectainvest.cl/" class="btn btn-navy btn-sm" style="width:100%;">Ir a Mi cuenta</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Conecta Invest. Todos los derechos reservados.</p>
+      <a href="https://dashboard.conectainvest.cl/">dashboard.conectainvest.cl</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="ci-data.js"></script>
+<script>
+  const navEl = document.getElementById('primaryNav');
+  const mbtn = document.getElementById('mmenuBtn');
+  const scrim = document.getElementById('navScrim');
+  const toggleNav = () => { navEl.classList.toggle('open'); scrim.classList.toggle('show'); };
+  mbtn.addEventListener('click', toggleNav);
+  scrim.addEventListener('click', toggleNav);
+  document.querySelectorAll('li.has-drop > a').forEach(a=>{
+    a.addEventListener('click', (e)=>{ if(window.innerWidth <= 1080){ e.preventDefault(); a.parentElement.classList.toggle('open'); } });
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const DISP_LABEL = { inmediata: 'Entrega inmediata', 'pronta entrega': 'Pronta entrega', futura: 'Entrega futura' };
+  const DISP_CLASS = { inmediata: 'disp-inmediata', 'pronta entrega': 'disp-pronta', futura: 'disp-futura' };
+
+  (async function loadProject(){
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const loadingState = document.getElementById('loadingState');
+    const notFoundState = document.getElementById('notFoundState');
+    const content = document.getElementById('projectContent');
+
+    if(!id){ loadingState.style.display='none'; notFoundState.style.display='block'; return; }
+
+    try {
+      const proyecto = await ciFetchProyectoDetalle(id);
+      if(!proyecto){ loadingState.style.display='none'; notFoundState.style.display='block'; return; }
+
+      const unidadesTodas = await ciFetchUnidadesDeProyecto(id);
+      const unidadesDisp = unidadesTodas.filter(u => (u.estado||'').toLowerCase() === 'disponible' && !/bodega|estacionamiento/i.test(u.tipo||''));
+
+      // --- Título / breadcrumb ---
+      document.title = `${proyecto.nombre || 'Proyecto'} — Conecta Invest`;
+      document.getElementById('crumbNombre').textContent = proyecto.nombre || 'Proyecto';
+      document.getElementById('projNombre').textContent = proyecto.nombre || 'Proyecto';
+      document.getElementById('projUbicacion').textContent = proyecto.ubicacion || '';
+      document.getElementById('formSubject').value = `Cotización — ${proyecto.nombre || 'Proyecto'}`;
+      document.getElementById('formProyecto').value = proyecto.nombre || '';
+
+      // --- Hero image ---
+      const heroImg = document.getElementById('heroImg');
+      if(proyecto.imagen_principal){ heroImg.src = proyecto.imagen_principal; heroImg.alt = proyecto.nombre || ''; }
+      else { heroImg.style.display = 'none'; }
+
+      // --- Badges ---
+      const disp = (proyecto.disponibilidad || '').toLowerCase();
+      const badgeRow = document.getElementById('badgeRow');
+      let badgesHtml = '';
+      if(proyecto.operacion) badgesHtml += `<span class="badge-pill op ${/arriendo/i.test(proyecto.operacion) ? 'rent':''}">${proyecto.operacion}</span>`;
+      if(proyecto.disponibilidad) badgesHtml += `<span class="badge-pill ${DISP_CLASS[disp]||'disp-inmediata'}">${DISP_LABEL[disp]||proyecto.disponibilidad}</span>`;
+      badgeRow.innerHTML = badgesHtml;
+
+      // --- Stats ---
+      const precios = unidadesDisp.map(u=>Number(u.precio_uf)||0).filter(x=>x>0);
+      const minUF = precios.length ? Math.min(...precios) : null;
+      const m2s = unidadesDisp.map(u=>Number(u.m2)||0).filter(x=>x>0);
+      const minM2 = m2s.length ? Math.min(...m2s) : null;
+      document.getElementById('statUnidades').textContent = unidadesDisp.length;
+      document.getElementById('statTipo').textContent = proyecto.tipo || '—';
+      document.getElementById('statM2').textContent = minM2 ? minM2 + ' m²' : '—';
+      document.getElementById('sidePrice').textContent = ciFormatUF(minUF);
+      if(proyecto.inmobiliaria_nombre){
+        const sideInmo = document.getElementById('sideInmo');
+        sideInmo.style.display = 'block';
+        sideInmo.textContent = `Publicado por ${proyecto.inmobiliaria_nombre}`;
+      }
+
+      // --- Descripción (si existe la columna, cualquiera sea su nombre) ---
+      const desc = proyecto.descripcion || proyecto.description || proyecto.detalle || '';
+      const descBox = document.getElementById('descText');
+      descBox.textContent = desc || 'Próximamente más información sobre este proyecto. Escríbenos si tienes preguntas específicas.';
+
+      // --- Unidades ---
+      const unitsList = document.getElementById('unitsList');
+      if(unidadesDisp.length){
+        unitsList.innerHTML = unidadesDisp.map(u => `
+          <div class="unit-row">
+            <div class="unit-info">${u.nombre || 'Unidad'} <span>· Piso ${u.piso ?? '—'} · ${u.m2 ?? '—'} m² · ${u.habitaciones ?? 0} hab</span></div>
+            <div class="unit-price">${u.precio_uf ? Number(u.precio_uf).toLocaleString('es-CL') + ' UF' : 'Consultar'}</div>
+          </div>`).join('');
+      } else {
+        unitsList.innerHTML = '<p>No hay unidades disponibles en este momento — escríbenos para saber cuándo vuelven a abrir stock.</p>';
+      }
+
+      // --- Mapa ---
+      const { coords, exact } = ciGetCoords(proyecto);
+      const map = L.map('projMap', { scrollWheelZoom:false }).setView(coords, exact ? 15 : 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:'&copy; OpenStreetMap', maxZoom:19 }).addTo(map);
+      L.marker(coords).addTo(map);
+      document.getElementById('mapNote').lastChild.textContent = exact
+        ? ' Ubicación exacta del proyecto.'
+        : ' Ubicación referencial de la comuna (aún no hay coordenadas exactas cargadas).';
+      setTimeout(() => map.invalidateSize(), 200);
+
+      loadingState.style.display = 'none';
+      content.style.display = 'block';
+
+    } catch(e) {
+      console.error('Conecta Invest — detalle de proyecto:', e);
+      loadingState.style.display = 'none';
+      notFoundState.style.display = 'block';
+    }
+  })();
+
+  // --- Form cotizar ---
+  const quoteForm = document.getElementById('quoteForm');
+  const errorBox = document.getElementById('formError');
+  quoteForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.classList.remove('show');
+    const submitBtn = quoteForm.querySelector('button[type=submit]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando…';
+    try {
+      const res = await fetch(quoteForm.action, { method:'POST', body:new FormData(quoteForm), headers:{'Accept':'application/json'} });
+      if(res.ok){
+        document.getElementById('cotizar').classList.add('is-submitted');
+        document.getElementById('formSuccess').classList.add('show');
+      } else { throw new Error('submit failed'); }
+    } catch(err){
+      errorBox.classList.add('show');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar consulta';
+    }
+  });
+</script>
+</body>
+</html>
