@@ -232,7 +232,8 @@
 </div>
       <div class="form-card">
         <div id="formError" class="form-error">No pudimos enviar tu formulario. Inténtalo nuevamente o escríbenos directo a este correo.</div>
-        <form id="leadForm" action="https://formspree.io/f/CRISTIAN_FORM_ID" method="POST" data-submit-label="Unirme">
+        <form id="leadForm" action="https://dashboard.conectainvest.cl/api/webhook" method="POST" data-submit-label="Unirme">
+          <input type="hidden" name="_tipo" value="master-broker">
           <input type="hidden" name="_subject" value="Nueva postulación — Master Broker">
           <input type="text" name="_gotcha" style="display:none">
           <div class="field-set">
@@ -366,6 +367,42 @@
   });
 </script>
 
+
+
+<script>
+(function(){
+  var form = document.getElementById('leadForm');
+  if(!form) return;
+  var btn = form.querySelector('[type="submit"]');
+  var originalLabel = btn ? btn.textContent : 'Enviar';
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if(btn){ btn.disabled=true; btn.textContent='Enviando...'; }
+
+    var data = {};
+    new FormData(form).forEach(function(v,k){ data[k]=v; });
+    // _tipo viene del campo oculto ya inyectado
+
+    try {
+      var r = await fetch( + ENDPOINT + , {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(data)
+      });
+      var json = await r.json();
+      if(json.ok){
+        form.innerHTML = '<div style="text-align:center;padding:40px 20px"><div style="font-size:40px;margin-bottom:12px">✅</div><h3 style="color:#04195e;margin-bottom:8px">¡Recibido!</h3><p style="color:#6b7280;font-size:14px">Nos pondremos en contacto contigo pronto.</p></div>';
+      } else {
+        throw new Error(json.error || 'Error');
+      }
+    } catch(err) {
+      if(btn){ btn.disabled=false; btn.textContent=originalLabel; }
+      alert('Hubo un error al enviar el formulario. Por favor intenta de nuevo.');
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
