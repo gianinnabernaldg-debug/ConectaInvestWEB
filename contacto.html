@@ -436,34 +436,7 @@
 </script>
 
 
-<script>
-  const form = document.getElementById('leadForm');
-  const errorBox = document.getElementById('formError');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    errorBox.classList.remove('show');
-    const submitBtn = form.querySelector('button[type=submit]');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Enviando…';
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        form.closest('.form-card').classList.add('is-submitted');
-        document.getElementById('formSuccess').classList.add('show');
-      } else {
-        throw new Error('submit failed');
-      }
-    } catch (err) {
-      errorBox.classList.add('show');
-      submitBtn.disabled = false;
-      submitBtn.textContent = form.dataset.submitLabel;
-    }
-  });
-</script>
+<!-- submit handler moved to webhook script -->
 
 
 
