@@ -80,6 +80,13 @@
   .page-header h1{font-size:clamp(24px,3.4vw,36px); max-width:760px;}
   .page-header h1 b{color:var(--blue-600); font-weight:800;}
   .page-header .sub{margin-top:10px; font-size:15.5px; max-width:640px;}
+  .scope-note{display:flex; align-items:flex-start; gap:12px; background:var(--sky-50); border:1px solid var(--sky-100); border-radius:14px; padding:16px 18px; margin-top:22px; max-width:760px;}
+  .scope-note svg{width:20px; height:20px; stroke:var(--blue-600); flex:none; margin-top:1px;}
+  .scope-note p{font-size:14px; color:var(--navy-950); line-height:1.6;}
+  .scope-note p b{color:var(--blue-600);}
+  .scope-note .scope-links{display:flex; gap:16px; margin-top:8px; flex-wrap:wrap;}
+  .scope-note .scope-links a{font-size:13.5px; font-weight:700; color:var(--blue-600); text-decoration:underline;}
+  .scope-note .scope-links a:hover{color:var(--navy-900);}
 
   /* WHY-STYLE MINI CARDS (used on Soy Inmobiliaria) */
   .section{padding:76px 0;}
@@ -114,7 +121,7 @@
     width:100%; border:1.5px solid var(--line); border-radius:11px; padding:12px 14px; font-family:var(--font);
     font-size:14.5px; color:var(--ink); background:#fff; transition:border-color .18s ease; appearance:none;
   }
-  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237c8a9a' stroke-width='1.6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; background-size:10px 7px; -webkit-appearance:none; -moz-appearance:none; appearance:none; padding-right:36px;}
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237c8a9a' stroke-width='1.6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center;}
   .field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--blue-500);}
   .field textarea{resize:vertical; min-height:110px;}
   .char-count{text-align:right; font-size:12px; color:var(--muted); margin-top:5px;}
@@ -211,8 +218,20 @@
 <section class="page-header">
   <div class="wrap">
     <div class="breadcrumb"><a href="index.html">Nosotros</a> / <span>Contacto</span></div>
-    <h1>¿Dudas? <b>Contáctanos</b> hoy mismo</h1>
-    <p class="sub">¿Quieres ser vendedor? Ingresa a la sección Únete al equipo. Si tienes otra consulta, escríbenos aquí.</p>
+    <h1>¿Dudas sobre una <b>propiedad</b>? Contáctanos hoy mismo</h1>
+    <p class="sub">Este formulario es para consultas sobre propiedades, inversión y la plataforma Conecta Invest.</p>
+    <div class="scope-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+      <div>
+        <p>Si quieres <b>sumarte a nuestro equipo comercial</b> o eres <b>inmobiliaria</b>, no uses este formulario: tu postulación llega más rápido en la sección correspondiente.</p>
+        <div class="scope-links">
+          <a href="soy-oficina-de-corretaje.html">Soy Oficina de Corretaje →</a>
+          <a href="master-broker.html">Master Broker →</a>
+          <a href="broker-independiente.html">Broker Independiente →</a>
+          <a href="soy-inmobiliaria.html">Soy Inmobiliaria →</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -224,144 +243,18 @@
     
     <div class="form-shell">
       <div class="form-aside">
-  <h2>¿Prefieres escribirnos <span style="color:var(--blue-600);">directo</span>?</h2>
-  <p>Cuéntanos qué necesitas y te responderemos a la brevedad.</p>
-  <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16.5 5.3c1.5.5 2.6 1.9 2.6 3.6 0 1.7-1.1 3.1-2.6 3.6"/><path d="M18.5 14.4c2.3.6 4 2.7 4 5.6"/></svg><div><b>¿Quieres ser vendedor?</b><p>Ingresa a la sección Únete al equipo y postula como oficina, master broker o broker independiente.</p></div></div>
-  <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg><div><b>¿Eres inmobiliaria?</b><p>Revisa la sección Soy Inmobiliaria para sumar tu stock a la red.</p></div></div>
+  <h2>¿En qué te <span style="color:var(--blue-600);">ayudamos</span>?</h2>
+  <p>Este canal es para consultas de compradores, arrendatarios e inversionistas sobre propiedades y sobre cómo funciona Conecta Invest.</p>
+  <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg><div><b>Respuesta rápida</b><p>Un ejecutivo revisa tu consulta y te contacta al correo o teléfono que nos dejes.</p></div></div>
+  <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16.5 5.3c1.5.5 2.6 1.9 2.6 3.6 0 1.7-1.1 3.1-2.6 3.6"/><path d="M18.5 14.4c2.3.6 4 2.7 4 5.6"/></svg><div><b>¿Quieres ser vendedor o inmobiliaria?</b><p>Usa los formularios de Únete al equipo o Soy Inmobiliaria — llegan directo al área correcta y se gestionan más rápido.</p></div></div>
 </div>
       <div class="form-card">
         <div id="formError" class="form-error">No pudimos enviar tu formulario. Inténtalo nuevamente o escríbenos directo a este correo.</div>
-        <form id="leadForm" action="https://dashboard.conectainvest.cl/api/webhook" method="POST" data-submit-label="Enviar">
-          <input type="hidden" name="_tipo" value="contacto">
-          <input type="hidden" name="_subject" value="Nuevo mensaje de contacto">
+        <form id="leadForm" action="https://formspree.io/f/ADMIN_FORM_ID" method="POST" data-submit-label="Enviar">
+          <input type="hidden" name="_subject" value="Nueva consulta sobre propiedades — Conecta Invest">
           <input type="text" name="_gotcha" style="display:none">
           <div class="field-set">
-            <!-- Datos personales -->
-            <div class="field-row">
-              <div class="field"><label>Nombre *</label><input type="text" name="nombre" required placeholder="Tu nombre"></div>
-              <div class="field"><label>Apellido *</label><input type="text" name="apellido" required placeholder="Tu apellido"></div>
-            </div>
-            <div class="field-row">
-              <div class="field"><label>Correo electrónico *</label><input type="email" name="email" required placeholder="correo@email.cl"></div>
-              <div class="field"><label>Teléfono *</label><input type="tel" name="telefono" required placeholder="+56 9 ..."></div>
-            </div>
-
-            <!-- Qué busca -->
-            <div class="field-row">
-              <div class="field">
-                <label>¿Qué tipo de propiedad buscas? <span class="opt">(opcional)</span></label>
-                <select name="tipo_propiedad">
-                  <option value="">Selecciona...</option>
-                  <option value="Departamento">Departamento</option>
-                  <option value="Casa">Casa</option>
-                  <option value="Oficina">Oficina</option>
-                  <option value="Local comercial">Local comercial</option>
-                  <option value="Cualquiera">Cualquiera</option>
-                </select>
-              </div>
-              <div class="field">
-                <label>¿Para qué? <span class="opt">(opcional)</span></label>
-                <select name="proposito">
-                  <option value="">Selecciona...</option>
-                  <option value="Vivir">Para vivir</option>
-                  <option value="Inversión">Inversión / arriendo</option>
-                  <option value="Ambas">Ambas opciones</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Tipología -->
-            <div class="field-row">
-              <div class="field">
-                <label>Dormitorios <span class="opt">(opcional)</span></label>
-                <select name="dormitorios">
-                  <option value="">Selecciona...</option>
-                  <option value="1">1 dormitorio</option>
-                  <option value="2">2 dormitorios</option>
-                  <option value="3">3 dormitorios</option>
-                  <option value="4+">4 o más</option>
-                </select>
-              </div>
-              <div class="field">
-                <label>Baños <span class="opt">(opcional)</span></label>
-                <select name="banos">
-                  <option value="">Selecciona...</option>
-                  <option value="1">1 baño</option>
-                  <option value="2">2 baños</option>
-                  <option value="3+">3 o más</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Extras -->
-            <div class="field-row">
-              <div class="field">
-                <label>¿Necesitas estacionamiento? <span class="opt">(opcional)</span></label>
-                <select name="estacionamiento">
-                  <option value="">Selecciona...</option>
-                  <option value="Sí">Sí</option>
-                  <option value="No">No</option>
-                  <option value="Indiferente">Indiferente</option>
-                </select>
-              </div>
-              <div class="field">
-                <label>¿Necesitas bodega? <span class="opt">(opcional)</span></label>
-                <select name="bodega">
-                  <option value="">Selecciona...</option>
-                  <option value="Sí">Sí</option>
-                  <option value="No">No</option>
-                  <option value="Indiferente">Indiferente</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Ubicación y presupuesto -->
-            <div class="field-row">
-              <div class="field">
-                <label>Zona o comuna de interés <span class="opt">(opcional)</span></label>
-                <input type="text" name="ubicacion" placeholder="Ej: Providencia, Las Condes...">
-              </div>
-              <div class="field">
-                <label>Presupuesto aproximado (UF) <span class="opt">(opcional)</span></label>
-                <select name="presupuesto_uf">
-                  <option value="">Selecciona...</option>
-                  <option value="Hasta 2.000 UF">Hasta 2.000 UF</option>
-                  <option value="2.000 - 3.000 UF">2.000 – 3.000 UF</option>
-                  <option value="3.000 - 4.000 UF">3.000 – 4.000 UF</option>
-                  <option value="4.000 - 6.000 UF">4.000 – 6.000 UF</option>
-                  <option value="Más de 6.000 UF">Más de 6.000 UF</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Condición financiera -->
-            <div class="field-row">
-              <div class="field">
-                <label>¿Cuentas con pie mínimo (20%)? <span class="opt">(opcional)</span></label>
-                <select name="tiene_pie">
-                  <option value="">Selecciona...</option>
-                  <option value="Sí">Sí</option>
-                  <option value="No">No</option>
-                  <option value="En proceso">En proceso de ahorro</option>
-                </select>
-              </div>
-              <div class="field">
-                <label>¿Tienes crédito hipotecario preaprobado? <span class="opt">(opcional)</span></label>
-                <select name="hipotecario">
-                  <option value="">Selecciona...</option>
-                  <option value="Sí">Sí</option>
-                  <option value="No">No</option>
-                  <option value="En trámite">En trámite</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Mensaje libre -->
-            <div class="field">
-              <label>¿Algo más que quieras contarnos? <span class="opt">(opcional)</span></label>
-              <textarea name="mensaje" maxlength="300" id="msgField" oninput="document.getElementById('msgCount').textContent = this.value.length" placeholder="Cuéntanos más sobre lo que buscas..."></textarea>
-              <div class="char-count"><span id="msgCount">0</span> / 300</div>
-            </div>
+            <div class="field-row"><div class="field"><label>Nombre *</label><input type="text" name="nombre" required></div><div class="field"><label>Correo electrónico *</label><input type="email" name="email" required></div></div><div class="field"><label>Teléfono *</label><input type="tel" name="telefono" required></div><div class="field"><label>¿Qué propiedad o consulta te interesa? *</label><textarea name="mensaje" maxlength="180" required id="msgField" placeholder="Ej: quiero más información sobre un proyecto en Las Condes…" oninput="document.getElementById('msgCount').textContent = this.value.length"></textarea><div class="char-count"><span id="msgCount">0</span> / 180</div></div>
             <button type="submit" class="btn btn-navy form-submit">Enviar</button>
             <div class="form-note"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>Tus datos solo se usan para contactarte sobre esta postulación.</div>
           </div>
@@ -436,39 +329,35 @@
 </script>
 
 
-<!-- submit handler moved to webhook script -->
-
-
-
 <script>
-(function(){
-  var form = document.getElementById('leadForm');
-  if(!form) return;
-  var btn = form.querySelector('[type="submit"]');
-  var originalLabel = btn ? btn.textContent : 'Enviar';
-  form.addEventListener('submit', async function(e){
+  const form = document.getElementById('leadForm');
+  const errorBox = document.getElementById('formError');
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if(btn){ btn.disabled=true; btn.textContent='Enviando...'; }
-    var data = {};
-    new FormData(form).forEach(function(v,k){ data[k]=v; });
+    errorBox.classList.remove('show');
+    const submitBtn = form.querySelector('button[type=submit]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando…';
     try {
-      var r = await fetch('https://dashboard.conectainvest.cl/api/webhook', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(data)
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
       });
-      var json = await r.json();
-      if(json.ok){
-        form.innerHTML = '<div style="text-align:center;padding:40px 20px"><div style="font-size:48px;margin-bottom:14px">✅</div><h3 style="color:#04195e;margin-bottom:8px;font-size:20px">¡Recibido!</h3><p style="color:#6b7280;font-size:15px">Nos pondremos en contacto contigo a la brevedad.</p></div>';
-      } else { throw new Error(json.error||'Error'); }
-    } catch(err) {
-      if(btn){ btn.disabled=false; btn.textContent=originalLabel; }
-      alert('Hubo un error al enviar. Por favor inténtalo de nuevo.');
-      console.error(err);
+      if (res.ok) {
+        form.closest('.form-card').classList.add('is-submitted');
+        document.getElementById('formSuccess').classList.add('show');
+      } else {
+        throw new Error('submit failed');
+      }
+    } catch (err) {
+      errorBox.classList.add('show');
+      submitBtn.disabled = false;
+      submitBtn.textContent = form.dataset.submitLabel;
     }
   });
-})();
 </script>
+
 
 </body>
 </html>
